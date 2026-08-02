@@ -1,0 +1,33 @@
+FROM php:8.3-apache
+
+# Install PHP extensions needed by your app
+RUN docker-php-ext-install \
+    mysqli \
+    pdo \
+    pdo_mysql
+
+# Enable Apache rewrite module
+RUN a2enmod rewrite
+
+# Install useful tools
+RUN apt-get update && apt-get install -y \
+    unzip \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+COPY ./php.ini /usr/local/etc/php/conf.d/app.ini
+
+# Copy application
+COPY ./src /var/www/html
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html
+
+EXPOSE 80

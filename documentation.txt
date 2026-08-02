@@ -1,0 +1,26 @@
+https://docs.google.com/document/d/123boIZSLtrzAbbltVNMYkLqakxHVVudNvnrK3ez1CMY/edit?usp=sharing
+
+
+
+
+how are we going to select CRMs ?
+
+CRM Marketplace 
+
+
+
+partner application 
+
+
+
+
+
+Tools 
+Tools 
+
+
+
+
+C:\Users\Jamal\Downloads\FitBasic v2.0\FitBasic v2.0\app>git add . 
+
+C:\Users\Jamal\Downloads\FitBasic v2.0\FitBasic v2.0\app>git commit -m "thisn" 

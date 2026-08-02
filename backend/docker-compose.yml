@@ -1,0 +1,53 @@
+services:
+
+  app:
+    build: .
+    container_name: my-php-app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_DATABASE: my_database
+      DB_USERNAME: appuser
+      DB_PASSWORD: password
+
+
+  db:
+    image: mysql:8.4
+    container_name: mysql-db
+    restart: always
+    # App targets MySQL 5.x/MariaDB defaults: its queries break under
+    # ONLY_FULL_GROUP_BY, and its INSERTs omit NOT NULL columns that have no
+    # default (e.g. we_day1.eorder), which STRICT_TRANS_TABLES rejects.
+    command: --sql-mode=NO_ENGINE_SUBSTITUTION
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+    depends_on:
+      - db
+
+
+volumes:
+  mysql_data:
