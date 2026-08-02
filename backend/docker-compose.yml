@@ -33,6 +33,9 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      # Initialize a new local database with the supplied schema and yoga extension.
+      - ../database.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
+      - ./migrations/001_add_yoga_tables.sql:/docker-entrypoint-initdb.d/002_yoga.sql:ro
 
 
   phpmyadmin:
