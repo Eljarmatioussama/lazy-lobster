@@ -59,15 +59,13 @@ export default function StackNavigation(props){
 
 // ******************************** Buttons
 
-const buttonMenu = (screenNavigation) => {
-	return (
-		<IconButton icon="menu" iconColor={theme === "light" ? '#000' : '#fff'} size={24} style={{marginLeft:15}} onPress={() => screenNavigation.openDrawer()}/>
-		)
-};
+const buttonProfile = (screenNavigation) => (
+	<IconButton icon="account-circle-outline" iconColor={theme === "light" ? '#000' : '#fff'} size={25} style={{marginRight: 12}} onPress={() => screenNavigation.navigate('profile')} />
+);
 
 return (
 	<Stack.Navigator screenOptions={navigatorOptions}>
-	<Stack.Screen name="home" component={Home} options={({navigation: screenNavigation}) => ({title: Strings.ST1, headerLeft: () => buttonMenu(screenNavigation)})} />
+	<Stack.Screen name="home" component={Home} options={({navigation: screenNavigation}) => ({title: Strings.ST1, headerRight: () => buttonProfile(screenNavigation)})} />
 	<Stack.Screen name="profile" component={Profile} options={{title: Strings.ST6}} />
 	<Stack.Screen name="settings" component={Settings} options={{title: Strings.ST108}} />
 	<Stack.Screen name="about" component={About} options={{title: Strings.ST110}} />
