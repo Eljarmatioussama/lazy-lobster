@@ -36,6 +36,7 @@ services:
       # Initialize a new local database with the supplied schema and yoga extension.
       - ../database.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
       - ./migrations/001_add_yoga_tables.sql:/docker-entrypoint-initdb.d/002_yoga.sql:ro
+      - ./migrations/002_add_app_users.sql:/docker-entrypoint-initdb.d/003_app_users.sql:ro
 
 
   phpmyadmin:

@@ -1,24 +1,20 @@
 <?php
 
-require '../classes/firebase/vendor/autoload.php';
-
 require '../admin/config.php';
-require '../admin/functions.php';
+require './dbconfig.php';
 
-use Kreait\Firebase\Factory;
-use Kreait\Firebase\ServiceAccount;
-
-$serviceAccount = ServiceAccount::fromJsonFile('../classes/firebase/google-service-account.json');
-
-$firebase = (new Factory)
-    ->withServiceAccount($serviceAccount)
-    ->create();
-
-$auth = $firebase->getAuth();
-
-$users = $auth->listUsers($defaultMaxResults = 1000, $defaultBatchSize = 1000);
-
-$data = iterator_to_array($users);
+$statement = $DB_con->query('SELECT user_id, email, display_name, created_at FROM app_users ORDER BY created_at DESC');
+$data = array();
+foreach ($statement->fetchAll(PDO::FETCH_ASSOC) as $user) {
+    $data[] = array(
+        'uid' => $user['user_id'],
+        'displayName' => $user['display_name'],
+        'email' => $user['email'],
+        'emailVerified' => true,
+        'disabled' => false,
+        'metadata' => array('createdAt' => $user['created_at'])
+    );
+}
 
 $results = array(
     "sEcho" => 1,

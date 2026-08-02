@@ -36,16 +36,10 @@ export default function Login(props) {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                if (errorCode === 'auth/wrong-password' || errorCode === 'auth/invalid-credential') {
+                if (errorCode === 'auth/wrong-password' || errorCode === 'auth/invalid-credential' || errorCode === 'auth/user-not-found') {
 
                 setLoading(false);
-                Alert.alert(Strings.ST113);
-
-                }
-                else if (errorCode === 'auth/user-not-found') {
-
-                setLoading(false);
-                Alert.alert(Strings.ST37);
+                onChangeScreen('register');
 
                 }
                 else{

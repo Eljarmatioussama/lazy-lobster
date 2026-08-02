@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { signOut, EmailAuthProvider, deleteUser, reauthenticateWithCredential } from 'firebase/auth';
+import { signOut, EmailAuthProvider, deleteUser, reauthenticateWithCredential, updateProfile } from 'firebase/auth';
 import { auth } from '../config/ConfigFirebase';
-import { ScrollView, View, Image, Alert } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View, Image, Alert, TouchableOpacity, ActivityIndicator } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import * as ImagePicker from 'expo-image-picker';
+import ConfigApp from '../config/ConfigApp';
 import AppLoading from '../components/InnerLoading';
 import CustomButton from '../components/CustomButton';
 import Styles from '../config/Styles';
@@ -20,6 +23,38 @@ export default function Profile(props) {
   const [user, setUser] = useState([]);
   const [visible, setVisible] = useState(false);
   const [password, setPassword] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+
+  const pickProfilePicture = async () => {
+    if (isUploading) return;
+    const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permission.granted) {
+      Alert.alert('Permission needed', 'Allow photo library access to choose a profile picture.');
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'], allowsEditing: true, aspect: [1, 1], quality: 0.85 });
+    if (result.canceled || !result.assets?.[0]?.uri || !auth.currentUser) return;
+    try {
+      setIsUploading(true);
+      const asset = result.assets[0];
+      const response = await fetch(asset.uri);
+      const blob = await response.blob();
+      const formData = new FormData();
+      formData.append('user_id', auth.currentUser.uid);
+      formData.append('profile', blob, `profile.${asset.uri.split('.').pop() || 'jpg'}`);
+      const uploadResponse = await fetch(`${ConfigApp.URL}controller/upload_profile_picture.php`, { method: 'POST', body: formData });
+      const uploadResult = await uploadResponse.json();
+      if (!uploadResponse.ok || !uploadResult.url) throw new Error(uploadResult.error || 'Upload failed');
+      const photoURL = uploadResult.url;
+      await updateProfile(auth.currentUser, { photoURL });
+      setUser({...auth.currentUser});
+    } catch (error) {
+      console.error('Profile picture upload failed', error);
+      Alert.alert('Upload failed', 'Your profile picture could not be uploaded. Please try again.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const onChangeScreen = (screen) => {
     props.navigation.navigate(screen);
@@ -63,12 +98,17 @@ if(isLoaded) {
 
  return (
 
-  <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+  <ScrollView contentContainerStyle={{paddingBottom: 24}} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
   <SafeAreaView>
 
   <View style={Styles.HeaderProfile}>
-    {user.photoURL ? <Image source={{uri: user.photoURL}} style={Styles.ImageProfile} resizeMode={"cover"}/>
-    : <Image source={require('../../assets/male.jpg')} style={Styles.ImageProfile} resizeMode={"cover"}/>}
+    <TouchableOpacity onPress={pickProfilePicture} activeOpacity={0.85} style={Styles.ProfileImageButton} accessibilityRole="button" accessibilityLabel="Change profile picture">
+      {user.photoURL ? <Image source={{uri: user.photoURL}} style={Styles.ImageProfile} resizeMode={"cover"}/>
+      : <Image source={require('../../assets/male.jpg')} style={Styles.ImageProfile} resizeMode={"cover"}/>}
+      <View style={Styles.ProfileCameraBadge}>
+        {isUploading ? <ActivityIndicator size="small" color="#fff" /> : <Icon name="camera" size={18} color="#fff" />}
+      </View>
+    </TouchableOpacity>
   
     <View style={{flexDirection: 'row'}}>
     {user.displayName ? <Text style={Styles.TextProfile}>{user.displayName}</Text> : null}

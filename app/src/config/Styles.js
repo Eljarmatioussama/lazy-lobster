@@ -234,9 +234,27 @@ marginTop: 20
 ImageProfile:{
 borderRadius: 100,
 width: screenWidth*0.28,
-height: 'auto',
-minHeight: screenWidth*0.28,
-marginBottom: 20	
+height: screenWidth*0.28,
+marginBottom: 14
+},
+
+ProfileImageButton:{
+position: 'relative',
+alignSelf: 'center'
+},
+
+ProfileCameraBadge:{
+position: 'absolute',
+right: 0,
+bottom: 14,
+width: 34,
+height: 34,
+borderRadius: 17,
+backgroundColor: PrimaryColor,
+alignItems: 'center',
+justifyContent: 'center',
+borderWidth: 2,
+borderColor: '#fff'
 },
 
 ButtonProfile:{

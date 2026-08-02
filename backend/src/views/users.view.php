@@ -44,16 +44,7 @@
     'searchable': false,
     "mRender" : function (data) {
 
-      let buttons = "";
-      btns = "<a class='btn btn-small btn-primary' href='../controller/edit_user.php?id="+data.uid+"'>Edit</a> <a class='btn btn-small btn-danger btn-delete deleteItem' data-url='../controller/delete_user.php?id="+data.uid+"'>Delete</a>";
-      
-      if (data.disabled == false) {
-        buttons = btns + " <a class='btn btn-small btn-warning' href='../controller/disable_user.php?id="+data.uid+"'>Disable</a>";
-      }else if(data.disabled == true) {
-        buttons = btns + " <a class='btn btn-small btn-success' href='../controller/enable_user.php?id="+data.uid+"'>Enable</a>";
-      }
-
-      return buttons;
+      return '<span class="text-muted">Firebase account</span>';
       }
       
     }

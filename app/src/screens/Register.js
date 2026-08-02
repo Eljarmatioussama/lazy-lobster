@@ -9,6 +9,7 @@ import ColorsApp from '../config/ColorsApp';
 import usePreferences from '../hooks/usePreferences';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../config/ConfigFirebase';
+import ConfigApp from '../config/ConfigApp';
 
 
 export default function Register(props) {
@@ -44,12 +45,25 @@ export default function Register(props) {
           }
 
       })
-      await createUserWithEmailAndPassword(auth, email, password).then(() => {
-          updateProfile({
+      await createUserWithEmailAndPassword(auth, email, password).then(async (credential) => {
+          await updateProfile(credential.user, {
               displayName : name ? name : '',
-          }).then(()=>{
-              setLoading(false);
-          }).catch(errorHandler);
+          });
+          try {
+            await fetch(`${ConfigApp.URL}controller/register_user.php`, {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                uid: credential.user.uid,
+                email: credential.user.email,
+                displayName: name || '',
+                photoURL: credential.user.photoURL || ''
+              })
+            });
+          } catch (syncError) {
+            console.warn('Backend user sync failed:', syncError);
+          }
+          setLoading(false);
 
       }).catch(errorHandler)
     }else{
