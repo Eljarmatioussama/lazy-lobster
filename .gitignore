@@ -1,0 +1,5 @@
+# Local Expo state, installed dependencies, and generated application builds
+/app/.expo/
+/app/node_modules/
+/app/dist/
+/app/*.apk
