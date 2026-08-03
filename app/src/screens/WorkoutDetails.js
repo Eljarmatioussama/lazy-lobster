@@ -125,7 +125,7 @@ export default function WorkoutDetails(props) {
     
 <SafeAreaView>
 
-    <View>
+    <View style={{paddingTop: 24, backgroundColor: '#fff'}}>
 
     {introVideo ? <VideoPlayer videoUrl={introVideo} thumbnail={item.image} title={item.title} onVideoCompleted={() => {}} /> : <ImageBackground source={{uri: item.image}} style={Styles.HeaderImage} resizeMode={'cover'}>
     <LinearGradient colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0.4)']} style={Styles.HeaderGradient}>

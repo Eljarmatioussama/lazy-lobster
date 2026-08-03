@@ -32,7 +32,7 @@
 
    <label class="control-label">Description</label>
    <textarea type="text" value="" placeholder="Description" maxlength="350" rows="4" id="description" class="advancedtinymce form-control" name="workout_description" required=""></textarea>
-   <label class="control-label">Introduction Video Link</label>
+   <label class="control-label">Introduction Video Link <small>(MP4, 1920 × 1080 / 1080p, 16:9 recommended)</small></label>
    <input type="url" value="" placeholder="https://example.com/video" name="workout_intro_video" class="form-control">
 
    <label class="control-label">Goal</label>

@@ -36,7 +36,7 @@
 
    <label class="control-label">Description</label>
    <textarea type="text" class="advancedtinymce form-control" name="workout_description" id="description" required><?php echo $workout['workout_description']; ?></textarea>
-   <label class="control-label">Introduction Video Link</label>
+   <label class="control-label">Introduction Video Link <small>(MP4, 1920 × 1080 / 1080p, 16:9 recommended)</small></label>
    <input type="url" value="<?php echo htmlspecialchars($workout['workout_intro_video'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="https://example.com/video" name="workout_intro_video" class="form-control">
 
    <label class="control-label">Goal</label>
