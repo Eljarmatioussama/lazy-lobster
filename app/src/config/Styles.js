@@ -839,39 +839,31 @@ fontSize:16
 },
 
 WorkoutGrid:{
-backgroundColor:'#f5faf8',
-marginHorizontal:16,
-marginTop:16,
-borderRadius:16,
-overflow:'hidden',
-borderWidth:1,
-borderColor:'#d8eee5',
-shadowColor:'#0b6b4a',
-shadowOpacity:0.12,
-shadowRadius:8,
-shadowOffset:{width:0,height:3},
-elevation:3
+backgroundColor:'transparent',
+marginHorizontal:12,
+marginTop:12,
 },
 
 WorkoutGridCol:{
-paddingVertical:14,
+paddingVertical:10,
 alignItems:'center',
-borderRightWidth:1,
-borderRightColor:'#d8eee5',
+backgroundColor:PrimaryColor,
+borderRadius:16,
+marginHorizontal:4,
 },
 
 WorkoutGridTitle:{
 fontSize:13,
 letterSpacing:0.8,
 textTransform:'uppercase',
-color:PrimaryColor,
+color:'#073b2a',
 fontWeight:'bold',
 },
 
 WorkoutGridSubTitle:{
 fontSize:17,
 marginTop:3,
-color:'#1f342d',
+color:'#ffffff',
 },
 
 DietGrid:{

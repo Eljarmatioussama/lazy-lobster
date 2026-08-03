@@ -12,6 +12,7 @@ import { Col, Grid } from 'react-native-easy-grid';
 import Days from '../components/Days';
 import LevelRate from '../components/LevelRate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import usePreferences from '../hooks/usePreferences';
 
 export default function WorkoutDetails(props) {
 
@@ -26,6 +27,7 @@ export default function WorkoutDetails(props) {
   const contextState = React.useContext(LanguageContext);
   const language = contextState.language;
   const Strings = Languages[language].texts;
+  const {theme} = usePreferences();
 
   const renderBookMark = async (id) => {
     await AsyncStorage.getItem('workoutsFav').then(token => {
@@ -125,7 +127,7 @@ export default function WorkoutDetails(props) {
     
 <SafeAreaView>
 
-    <View style={{paddingTop: 24, backgroundColor: '#fff'}}>
+    <View style={{paddingTop: 24, backgroundColor: theme === 'dark' ? '#121212' : '#fff'}}>
 
     {introVideo ? <VideoPlayer videoUrl={introVideo} thumbnail={item.image} title={item.title} onVideoCompleted={() => {}} /> : <ImageBackground source={{uri: item.image}} style={Styles.HeaderImage} resizeMode={'cover'}>
     <LinearGradient colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0.4)']} style={Styles.HeaderGradient}>
@@ -144,12 +146,12 @@ export default function WorkoutDetails(props) {
 
       <Col style={Styles.WorkoutGridCol}>
       <Text style={Styles.WorkoutGridTitle}>{Strings.ST87}</Text>
-      <Text style={Styles.WorkoutGridSubTitle}>{item.level}</Text>
+      <Text style={[Styles.WorkoutGridSubTitle, theme === 'dark' && {color:'#e7f5ef'}]}>{item.level}</Text>
       </Col>
 
       <Col style={Styles.WorkoutGridCol}>
       <Text style={Styles.WorkoutGridTitle}>{Strings.ST89}</Text>
-      <Text style={Styles.WorkoutGridSubTitle}>{item.goal}</Text>
+      <Text style={[Styles.WorkoutGridSubTitle, theme === 'dark' && {color:'#e7f5ef'}]}>{item.goal}</Text>
       </Col>
 
     </Grid>

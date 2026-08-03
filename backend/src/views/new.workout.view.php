@@ -73,7 +73,7 @@
    <option value="premium">Premium</option>
    </select>
 
-   <label class="control-label">Day 1</label>
+   <label class="control-label">Monday</label>
    <input type="hidden" value="1" name="day_1">
    <select multiple="multiple" class="my-select form-control" name="exercise_id1[]">
     <?php foreach($exercises_lists1 as $exercises_list1): ?>
@@ -81,7 +81,7 @@
     <?php endforeach; ?>
    </select>
 
-      <label class="control-label">Day 2</label>
+      <label class="control-label">Tuesday</label>
       <input type="hidden" value="2" name="day_2">
    <select multiple="multiple" class="my-select form-control" name="exercise_id2[]">
     <?php foreach($exercises_lists2 as $exercises_list2): ?>
@@ -89,7 +89,7 @@
     <?php endforeach; ?>
    </select>
 
-     <label class="control-label">Day 3</label>
+     <label class="control-label">Wednesday</label>
      <input type="hidden" value="3" name="day_3">
    <select multiple="multiple" class="my-select form-control" name="exercise_id3[]">
     <?php foreach($exercises_lists3 as $exercises_list3): ?>
@@ -97,7 +97,7 @@
     <?php endforeach; ?>
    </select>
 
-     <label class="control-label">Day 4</label>
+     <label class="control-label">Thursday</label>
      <input type="hidden" value="4" name="day_4">
    <select multiple="multiple" class="my-select form-control" name="exercise_id4[]">
     <?php foreach($exercises_lists4 as $exercises_list4): ?>
@@ -105,7 +105,7 @@
     <?php endforeach; ?>
    </select>
 
-     <label class="control-label">Day 5</label>
+     <label class="control-label">Friday</label>
      <input type="hidden" value="5" name="day_5">
    <select multiple="multiple" class="my-select form-control" name="exercise_id5[]">
     <?php foreach($exercises_lists5 as $exercises_list5): ?>
@@ -113,7 +113,7 @@
     <?php endforeach; ?>
    </select>
 
-     <label class="control-label">Day 6</label>
+     <label class="control-label">Saturday</label>
      <input type="hidden" value="6" name="day_6">
    <select multiple="multiple" class="my-select form-control" name="exercise_id6[]">
     <?php foreach($exercises_lists6 as $exercises_list6): ?>
@@ -121,7 +121,7 @@
     <?php endforeach; ?>
    </select>
 
-     <label class="control-label">Day 7</label>
+     <label class="control-label">Sunday</label>
      <input type="hidden" value="7" name="day_7">
    <select multiple="multiple" class="my-select form-control" name="exercise_id7[]">
     <?php foreach($exercises_lists7 as $exercises_list7): ?>

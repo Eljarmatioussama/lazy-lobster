@@ -80,13 +80,13 @@ const buttonBackToHome = () => {
 	}
 
 return (
-    <RootStack.Navigator screenOptions={(route) => {return navigatorOptions}}>
+    <RootStack.Navigator screenOptions={(route) => ({...navigatorOptions, presentation: 'fullScreenModal'})}>
       <RootStack.Screen name="Main" component={StackNavigation} options={{ headerShown: false }}/>
-      <RootStack.Screen name="exercisedetails" component={ExerciseDetails} options={({navigation}) => ({title: Strings.ST80, headerLeft: () => buttonClose(navigation)})} />
+      <RootStack.Screen name="exercisedetails" component={ExerciseDetails} options={({navigation}) => ({presentation: 'fullScreenModal', title: Strings.ST80, headerLeft: () => buttonClose(navigation)})} />
       <RootStack.Screen name="workoutdetails" component={WorkoutDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
-      <RootStack.Screen name="dietdetails" component={DietDetails} options={({navigation}) => ({headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
-      <RootStack.Screen name="productdetails" component={ProductDetails} options={({navigation}) => ({headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
-      <RootStack.Screen name="postdetails" component={PostDetails} options={({navigation}) => ({headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
+      <RootStack.Screen name="dietdetails" component={DietDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
+      <RootStack.Screen name="productdetails" component={ProductDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
+      <RootStack.Screen name="postdetails" component={PostDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="player" component={Player} options={{headerTransparent: true, title: null}} />
       <RootStack.Screen name="timer" component={Timer} options={{headerTransparent: true, title: null, headerLeft: null}} />
       <RootStack.Screen name="singleday" component={SingleDay} options={({navigation}) => ({title: null, headerLeft: () => buttonClose(navigation)})} />

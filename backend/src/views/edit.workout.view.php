@@ -98,7 +98,7 @@
    
    <div class="row">
     <div class="col-11">
-      <label class="control-label">Day 1</label>
+      <label class="control-label">Monday</label>
    <input type="hidden" value="1" name="day_1">
    <select multiple="multiple" class="my-select form-control" name="exercise_id1[]">
 
@@ -131,7 +131,7 @@ $single_name_exercise1 = explode(',', $multiple_name_exercise1);
 
    <div class="row">
     <div class="col-11">
-   <label class="control-label">Day 2</label>
+   <label class="control-label">Tuesday</label>
    <input type="hidden" value="2" name="day_2">
    <select multiple="multiple" class="my-select form-control" name="exercise_id2[]">
 
@@ -165,7 +165,7 @@ $single_name_exercise2 = explode(',', $multiple_name_exercise2);
    <div class="row">
     <div class="col-11">
 
-   <label class="control-label">Day 3</label>
+   <label class="control-label">Wednesday</label>
    <input type="hidden" value="3" name="day_3">
    <select multiple="multiple" class="my-select form-control" name="exercise_id3[]">
 
@@ -199,7 +199,7 @@ $single_name_exercise3 = explode(',', $multiple_name_exercise3);
    <div class="row">
     <div class="col-11">
 
-   <label class="control-label">Day 4</label>
+   <label class="control-label">Thursday</label>
    <input type="hidden" value="4" name="day_4">
    <select multiple="multiple" class="my-select form-control" name="exercise_id4[]">
 
@@ -233,7 +233,7 @@ $single_name_exercise4 = explode(',', $multiple_name_exercise4);
    <div class="row">
     <div class="col-11">
 
-   <label class="control-label">Day 5</label>
+   <label class="control-label">Friday</label>
    <input type="hidden" value="5" name="day_5">
    <select multiple="multiple" class="my-select form-control" name="exercise_id5[]">
 
@@ -266,7 +266,7 @@ $single_name_exercise5 = explode(',', $multiple_name_exercise5);
    <div class="row">
     <div class="col-11">
 
-   <label class="control-label">Day 6</label>
+   <label class="control-label">Saturday</label>
    <input type="hidden" value="6" name="day_6">
    <select multiple="multiple" class="my-select form-control" name="exercise_id6[]">
 
@@ -299,7 +299,7 @@ $single_name_exercise6 = explode(',', $multiple_name_exercise6);
    <div class="row">
     <div class="col-11">
 
-   <label class="control-label">Day 7</label>
+   <label class="control-label">Sunday</label>
    <input type="hidden" value="7" name="day_7">
    <select multiple="multiple" class="my-select form-control" name="exercise_id7[]">
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { I18nManager } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { IconButton } from 'react-native-paper';
@@ -54,7 +55,9 @@ export default function StackNavigation(props){
 			shadowOpacity: 0,
 			backgroundColor: theme === "light" ? '#fff' : '#000'
 		},
-		headerTitleAlign: 'center'
+		headerTitleAlign: 'center',
+		headerBackVisible: false,
+		headerLeft: () => <View style={{width: 8}} />
 	}
 
 // ******************************** Buttons
