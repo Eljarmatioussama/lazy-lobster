@@ -129,7 +129,7 @@ export default function WorkoutDetails(props) {
 
     <View>
 
-    {videoUrl ? (Platform.OS === 'web' ? React.createElement('iframe', {src: videoUrl, title: 'Introduction video', allow: 'autoplay; fullscreen', style: {width: '100%', height: Styles.HeaderImage.height, border: 0}}) : <WebView source={{uri: videoUrl}} allowsInlineMediaPlayback mediaPlaybackRequiresUserAction={false} style={Styles.HeaderImage} />) : null}
+    {videoUrl ? (Platform.OS === 'web' ? (videoUrl.toLowerCase().includes('.mp4') ? React.createElement('video', {src: videoUrl, autoPlay: true, muted: true, loop: true, playsInline: true, controls: true, style: {width: '100%', height: Styles.HeaderImage.height, objectFit: 'cover'}}) : React.createElement('iframe', {src: videoUrl, title: 'Introduction video', allow: 'autoplay; fullscreen', style: {width: '100%', height: Styles.HeaderImage.height, border: 0}})) : <WebView source={{uri: videoUrl}} allowsInlineMediaPlayback mediaPlaybackRequiresUserAction={false} style={Styles.HeaderImage} />) : null}
     {!videoUrl && <ImageBackground source={{uri: item.image}} style={Styles.HeaderImage} resizeMode={'cover'}>
     <LinearGradient colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0.4)']} style={Styles.HeaderGradient}>
 
