@@ -83,7 +83,7 @@ return (
     <RootStack.Navigator screenOptions={(route) => {return navigatorOptions}}>
       <RootStack.Screen name="Main" component={StackNavigation} options={{ headerShown: false }}/>
       <RootStack.Screen name="exercisedetails" component={ExerciseDetails} options={({navigation}) => ({title: Strings.ST80, headerLeft: () => buttonClose(navigation)})} />
-      <RootStack.Screen name="workoutdetails" component={WorkoutDetails} options={({navigation}) => ({headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
+      <RootStack.Screen name="workoutdetails" component={WorkoutDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="dietdetails" component={DietDetails} options={({navigation}) => ({headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="productdetails" component={ProductDetails} options={({navigation}) => ({headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="postdetails" component={PostDetails} options={({navigation}) => ({headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />

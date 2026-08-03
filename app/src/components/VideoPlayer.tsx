@@ -30,7 +30,6 @@ export default function VideoPlayer({videoUrl, onVideoCompleted}: VideoPlayerPro
         style={styles.video}
         contentFit="contain"
         nativeControls
-        allowsFullscreen
         fullscreenOptions={{enable: true}}
       />
     </View>
@@ -38,6 +37,6 @@ export default function VideoPlayer({videoUrl, onVideoCompleted}: VideoPlayerPro
 }
 
 const styles = StyleSheet.create({
-  card: {width: '100%', aspectRatio: 16 / 9, marginTop: 24, backgroundColor: '#000', overflow: 'hidden', borderTopLeftRadius: 18, borderTopRightRadius: 18},
+  card: {width: '100%', aspectRatio: 16 / 9, marginTop: 24, marginHorizontal:0, backgroundColor: '#000', overflow: 'hidden', borderRadius: 0},
   video: {width: '100%', height: '100%'},
 });
