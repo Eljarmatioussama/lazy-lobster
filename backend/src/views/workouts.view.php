@@ -66,7 +66,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="section-title">
-                            <h5>Workouts</h5>
+                            <h5>Series</h5>
                         </div>
                     </div>
 

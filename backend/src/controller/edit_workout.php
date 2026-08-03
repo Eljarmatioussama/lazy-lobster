@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 	$workout_title = cleardata($_POST['workout_title']);
 	$workout_description = $_POST['workout_description'];
+	$workout_intro_video = filter_var($_POST['workout_intro_video'] ?? '', FILTER_SANITIZE_URL);
 	$workout_goal = $_POST['workout_goal'];
 	$workout_level = cleardata($_POST['workout_level']);
 	$workout_bodypart = cleardata($_POST['workout_bodypart']);
@@ -58,13 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 $statment = $connect->prepare(
-	"UPDATE workouts SET workout_title = :workout_title, workout_description = :workout_description, workout_goal = :workout_goal, workout_level = :workout_level, workout_bodypart = :workout_bodypart, workout_equipment = :workout_equipment, workout_duration = :workout_duration, workout_price = :workout_price, workout_status = :workout_status, workout_image = :workout_image WHERE workout_id = :workout_id"
+	"UPDATE workouts SET workout_title = :workout_title, workout_description = :workout_description, workout_intro_video = :workout_intro_video, workout_goal = :workout_goal, workout_level = :workout_level, workout_bodypart = :workout_bodypart, workout_equipment = :workout_equipment, workout_duration = :workout_duration, workout_price = :workout_price, workout_status = :workout_status, workout_image = :workout_image WHERE workout_id = :workout_id"
 	);
 
 $statment->execute(array(
 
 		':workout_title' => $workout_title,
 		':workout_description' => $workout_description,
+		':workout_intro_video' => $workout_intro_video,
 		':workout_goal' => $workout_goal,
 		':workout_level' => $workout_level,
 		':workout_bodypart' => $workout_bodypart,

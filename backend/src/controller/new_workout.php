@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$day7 = cleardata($_POST['day_7']);
 	$workout_title = cleardata($_POST['workout_title']);
 	$workout_description = $_POST['workout_description'];
+	$workout_intro_video = filter_var($_POST['workout_intro_video'] ?? '', FILTER_SANITIZE_URL);
 	$workout_goal = cleardata($_POST['workout_goal']);
 	$workout_level = cleardata($_POST['workout_level']);
 	$workout_bodypart = cleardata($_POST['workout_bodypart']);
@@ -50,12 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	move_uploaded_file($workout_image, $workout_image_upload . 'workout_' . $renamefile);
 
 	$statment = $connect->prepare(
-		'INSERT INTO workouts (workout_id,workout_title,workout_description,workout_goal,workout_level,workout_bodypart,workout_equipment,workout_duration,workout_price,workout_status,workout_image) VALUES (null, :workout_title, :workout_description, :workout_goal, :workout_level, :workout_bodypart, :workout_equipment, :workout_duration, :workout_price, :workout_status, :workout_image)'
+		'INSERT INTO workouts (workout_id,workout_title,workout_description,workout_intro_video,workout_goal,workout_level,workout_bodypart,workout_equipment,workout_duration,workout_price,workout_status,workout_image) VALUES (null, :workout_title, :workout_description, :workout_intro_video, :workout_goal, :workout_level, :workout_bodypart, :workout_equipment, :workout_duration, :workout_price, :workout_status, :workout_image)'
 		);
 
 	$statment->execute(array(
 		':workout_title' => $workout_title,
 		':workout_description' => $workout_description,
+		':workout_intro_video' => $workout_intro_video,
 		':workout_goal' => $workout_goal,
 		':workout_level' => $workout_level,
 		':workout_bodypart' => $workout_bodypart,

@@ -19,7 +19,7 @@
                         <div class="block counter-block mb-4">
                             <div class="value"><?php echo $exercises_total; ?></div>
                             <i class="dripicons-stopwatch i-icon"></i>
-                            <p class="label">Exercises</p>
+                            <p class="label">Classes</p>
                         </div>
                     </div>
 
@@ -27,7 +27,7 @@
                         <div class="block counter-block mb-4">
                             <div class="value"><?php echo $workouts_total; ?></div>
                             <i class="dripicons-to-do i-icon"></i>
-                            <p class="label">Workouts</p>
+                            <p class="label">Series</p>
                         </div>
                     </div>
 
@@ -88,7 +88,7 @@
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="block table-block mb-4">
                             <div class="block-heading d-flex align-items-center" style="border:0; padding-bottom: 0;">
-                                <h5 class="text-truncate">Exercises</h5>
+                                <h5 class="text-truncate">Classes</h5>
                                 <div class="graph-pills graph-home">
                                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                     <li class="nav-item">
@@ -128,7 +128,7 @@
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="block table-block mb-4">
                             <div class="block-heading d-flex align-items-center" style="border:0; padding-bottom: 0;">
-                                <h5 class="text-truncate">Workouts</h5>
+                                <h5 class="text-truncate">Series</h5>
                                 <div class="graph-pills graph-home">
                                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                     <li class="nav-item">

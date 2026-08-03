@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-12">
                                         <div class="block-heading d-flex align-items-center title-pages">
-                    <h5 class="text-truncate">Edit Workout</h5>
+                    <h5 class="text-truncate">Edit Series</h5>
                 </div>
                     </div>
 
@@ -36,6 +36,8 @@
 
    <label class="control-label">Description</label>
    <textarea type="text" class="advancedtinymce form-control" name="workout_description" id="description" required><?php echo $workout['workout_description']; ?></textarea>
+   <label class="control-label">Introduction Video Link</label>
+   <input type="url" value="<?php echo htmlspecialchars($workout['workout_intro_video'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="https://example.com/video" name="workout_intro_video" class="form-control">
 
    <label class="control-label">Goal</label>
    <select class="form-control" name="workout_goal" required>

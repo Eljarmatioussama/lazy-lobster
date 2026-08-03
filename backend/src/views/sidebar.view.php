@@ -15,7 +15,7 @@
             <li>
                 <a href="javascript:void(0);" class="have-submenu <?php showMenu('exercises.php');?>">
                     <span class="icon-thumbnail"><i class="dripicons-stopwatch"></i></span>
-                    <span class="title">Exercises</span>
+                            <span class="title">Classes</span>
                 </a>
                 <!--Submenu-->
                 <ul class="sub-menu" style="display: <?php activePage('exercises.php');?>">
@@ -30,7 +30,7 @@
                     <li>
                         <a href="../controller/new_exercise.php">
                             <span class="icon-thumbnail"><i class="dripicons-dot"></i></span>
-                            <span class="title">New Exercise</span>
+                            <span class="title">New Class</span>
                         </a>
                     </li>
 
@@ -40,7 +40,7 @@
             <li>
                 <a href="javascript:void(0);" class="have-submenu <?php showMenu('workouts.php');?>">
                     <span class="icon-thumbnail"><i class="dripicons-to-do"></i></span>
-                    <span class="title">Workouts</span>
+                            <span class="title">Series</span>
                 </a>
                 <!--Submenu-->
                 <ul class="sub-menu" style="display: <?php activePage('workouts.php');?>">
@@ -55,7 +55,7 @@
                     <li>
                         <a href="../controller/new_workout.php">
                             <span class="icon-thumbnail"><i class="dripicons-dot"></i></span>
-                            <span class="title">New Workout</span>
+                            <span class="title">New Series</span>
                         </a>
                     </li>
 

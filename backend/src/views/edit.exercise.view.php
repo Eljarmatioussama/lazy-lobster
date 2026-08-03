@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-12">
                                         <div class="block-heading d-flex align-items-center title-pages">
-                    <h5 class="text-truncate">Edit Exercise</h5>
+                    <h5 class="text-truncate">Edit Class</h5>
                 </div>
                     </div>
 

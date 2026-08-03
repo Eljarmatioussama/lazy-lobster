@@ -85,6 +85,7 @@ require './app_core.php';
 		$id = $row['workout_id'];
 		$title = $row['workout_title'];
 		$description = $row['workout_description'];
+		$intro_video = $row['workout_intro_video'] ?? '';
 		$image = $row['workout_image'];
 		$duration = $row['workout_duration'];
 		$goal = $row['goal_title'];
@@ -98,6 +99,8 @@ require './app_core.php';
 			'id'=> $id,
 			'title'=> html_entity_decode($title),
 			'description'=> html_entity_decode($description),
+			'introVideo'=> $intro_video,
+			'intro_video'=> $intro_video,
 			'image'=> getImage($image),
 			'duration'=> html_entity_decode($duration),
 			'goal'=> html_entity_decode($goal),

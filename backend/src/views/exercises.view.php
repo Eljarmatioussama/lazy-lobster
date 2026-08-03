@@ -48,7 +48,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="section-title">
-                            <h5>Exercises</h5>
+                            <h5>Classes</h5>
                         </div>
                     </div>
 

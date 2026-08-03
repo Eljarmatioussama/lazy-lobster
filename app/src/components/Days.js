@@ -19,6 +19,7 @@ export default function Days(props) {
 
     const {Number, WorkoutId} = props;
 
+    const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const dayDetails = [
         ['Morning Flow', '20 min', '✓ Completed'],
         ['Gentle Stretch', '15 min', '▶ Continue'],
@@ -58,10 +59,10 @@ export default function Days(props) {
 
     <View key={i} style={Styles.DayCard}>
       <View style={Styles.DayCardContent}>
-        <Text style={Styles.DayCardLabel}>{Strings.ST90+' '+(i+1)}</Text>
+        <Text style={Styles.DayCardLabel}>{weekdays[i]}</Text>
         <Text style={Styles.DayCardTitle}>{dayDetails[i]?.[0] || 'Workout Session'}</Text>
         <Text style={Styles.DayCardDuration}>{dayDetails[i]?.[1] || '20 min'}</Text>
-        <Button compact mode="text" icon={completedDays.includes(i + 1) ? 'check' : 'play'} onPress={() => onChangeScreen(WorkoutId, i+1, Strings.ST90+' '+(i+1))} labelStyle={[Styles.DayCardAction, completedDays.includes(i + 1) && Styles.DayCardCompleted]}>
+        <Button compact mode="text" icon={completedDays.includes(i + 1) ? 'check' : 'play'} onPress={() => onChangeScreen(WorkoutId, i+1, weekdays[i])} labelStyle={[Styles.DayCardAction, completedDays.includes(i + 1) && Styles.DayCardCompleted]}>
           {completedDays.includes(i + 1) ? 'Continue' : 'Start'}
         </Button>
       </View>
