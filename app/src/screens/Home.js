@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, useWindowDimensions } from 'react-native';
+import { FlatList, View, useWindowDimensions, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Heading from '../components/Heading';
 import LatestWorkouts from '../components/LatestWorkouts';
@@ -9,12 +9,16 @@ import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
 import Levels from '../components/Levels';
 import LatestDiets from '../components/LatestDiets';
+import CollapsibleHeader from '../components/CollapsibleHeader';
 
 export default function Home(props) {
   const { height } = useWindowDimensions();
   const contextState = React.useContext(LanguageContext);
   const language = contextState.language;
   const Strings = Languages[language].texts;
+  const lastOffset = React.useRef(0);
+  const scrollY = React.useRef(new Animated.Value(0)).current;
+  React.useEffect(() => { props.navigation.setOptions({headerShown: false}); }, [props.navigation]);
   const onChangeScreen = (screen) => { props.navigation.navigate(screen); };
   const sections = [
     {key: 'workouts', content: <><Heading title={Strings.ST23} button={() => onChangeScreen('workouts')}/><LatestWorkouts/></>},
@@ -23,5 +27,5 @@ export default function Home(props) {
     {key: 'library', content: <ExercisesLibrary/>},
     {key: 'diets', content: <><Heading title={Strings.ST47} button={() => onChangeScreen('diets')}/><LatestDiets/></>},
   ];
-  return <SafeAreaView style={{flex: 1}}><FlatList style={{width: '100%', height: Math.max(0, height - 56)}} data={sections} renderItem={({item}) => <View style={{width: '100%'}}>{item.content}</View>} keyExtractor={(item) => item.key} contentContainerStyle={{paddingBottom: 32}} showsVerticalScrollIndicator={false} removeClippedSubviews={false}/></SafeAreaView>;
+  return <SafeAreaView style={{flex: 1}}><CollapsibleHeader title={Strings.ST1} navigation={props.navigation} scrollY={scrollY}/><Animated.FlatList style={{width: '100%', height: Math.max(0, height - 56)}} data={sections} renderItem={({item}) => <View style={{width: '100%'}}>{item.content}</View>} keyExtractor={(item) => item.key} contentContainerStyle={{paddingTop:56,paddingBottom:32}} showsVerticalScrollIndicator={false} removeClippedSubviews={false} onScroll={Animated.event([{nativeEvent:{contentOffset:{y:scrollY}}}],{useNativeDriver:true})} scrollEventThrottle={16}/></SafeAreaView>;
 }

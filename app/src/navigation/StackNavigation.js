@@ -50,6 +50,7 @@ export default function StackNavigation(props){
 	const navigatorOptions = {
 		headerTintColor: theme === "light" ? '#000' : '#fff',
 		headerStyle: {
+			height: 48,
 			shadowColor: 'transparent',
 			elevation: 0,
 			shadowOpacity: 0,
@@ -63,7 +64,7 @@ export default function StackNavigation(props){
 // ******************************** Buttons
 
 const buttonProfile = (screenNavigation) => (
-	<IconButton icon="account-circle-outline" iconColor={theme === "light" ? '#000' : '#fff'} size={25} style={{marginRight: 12}} onPress={() => screenNavigation.navigate('profile')} />
+	<IconButton icon="account-circle-outline" iconColor={theme === "light" ? '#000' : '#fff'} size={25} style={{marginRight: 6, marginTop: 8, marginBottom: -8}} onPress={() => screenNavigation.navigate('profile')} />
 );
 
 return (

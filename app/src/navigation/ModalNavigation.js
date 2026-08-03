@@ -67,6 +67,7 @@ const buttonBackToHome = () => {
 
 	const navigatorOptions = {
 		headerStyle: {
+			height: 48,
 			shadowColor: 'transparent',
 			elevation: 0,
 			shadowOpacity: 0,
@@ -80,7 +81,7 @@ const buttonBackToHome = () => {
 	}
 
 return (
-    <RootStack.Navigator screenOptions={(route) => ({...navigatorOptions, presentation: 'fullScreenModal'})}>
+    <RootStack.Navigator screenOptions={navigatorOptions}>
       <RootStack.Screen name="Main" component={StackNavigation} options={{ headerShown: false }}/>
       <RootStack.Screen name="exercisedetails" component={ExerciseDetails} options={({navigation}) => ({presentation: 'fullScreenModal', title: Strings.ST80, headerLeft: () => buttonClose(navigation)})} />
       <RootStack.Screen name="workoutdetails" component={WorkoutDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />

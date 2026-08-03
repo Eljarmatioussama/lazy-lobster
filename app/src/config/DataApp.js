@@ -1,6 +1,13 @@
 import ConfigApp from "./ConfigApp";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const normalizeMediaUrls = (value) => {
+  if (typeof value === 'string') return value.replace(/https?:\/\/localhost:8080/g, ConfigApp.URL.replace(/\/$/, ''));
+  if (Array.isArray(value)) return value.map(normalizeMediaUrls);
+  if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, normalizeMediaUrls(v)]));
+  return value;
+};
+
 ////////////////////////////////// API
 
 export async function getLatestWorkouts(page){
@@ -8,7 +15,7 @@ export async function getLatestWorkouts(page){
     const url = `${ConfigApp.URL}json/data_workouts.php?page=${page}&limit=8`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     console.warn('Unable to load workouts from the API:', error);
     return [];
@@ -20,7 +27,7 @@ export async function getPremiumWorkouts(page){
     const url = `${ConfigApp.URL}json/data_workouts.php?page=${page}&limit=8&price=premium`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -31,7 +38,7 @@ export async function getWorkoutById(id){
     const url = `${ConfigApp.URL}json/data_workouts.php?id=${id}&limit=1`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -42,7 +49,7 @@ export async function getWorkoutByUser(id, page){
     const url = `${ConfigApp.URL}json/data_workouts.php?user=${id}&page=${page}&limit=8`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -53,7 +60,7 @@ export async function searchWorkout(query, page){
     const url = `${ConfigApp.URL}json/data_workouts.php?query=${query}&page=${page}&limit=8`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -64,7 +71,7 @@ export async function getWorkoutsByGoal(id, page){
     const url = `${ConfigApp.URL}json/data_workouts.php?goal=${id}&page=${page}&limit=8&order=desc`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -75,7 +82,7 @@ export async function getWorkoutsByLevel(id, page){
     const url = `${ConfigApp.URL}json/data_workouts.php?level=${id}&page=${page}&limit=8&order=desc`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -86,7 +93,7 @@ export async function getExercisesByEquipment(id, page){
     const url = `${ConfigApp.URL}json/data_exercises.php?equipment=${id}&page=${page}&limit=8&order=desc`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -97,7 +104,7 @@ export async function getExercisesByMuscle(id, page){
     const url = `${ConfigApp.URL}json/data_exercises.php?muscle=${id}&page=${page}&limit=8&order=desc`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -108,7 +115,7 @@ export async function getExercisesById(id){
     const url = `${ConfigApp.URL}json/data_exercises.php?id=${id}`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -119,7 +126,7 @@ export async function getLatestDiets(page){
     const url = `${ConfigApp.URL}json/data_diets.php?page=${page}&limit=6`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     console.warn('Unable to load diets from the API:', error);
     return [];
@@ -131,7 +138,7 @@ export async function getDietsByUser(id, page){
     const url = `${ConfigApp.URL}json/data_diets.php?user=${id}&page=${page}&limit=8`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -142,7 +149,7 @@ export async function getDietsByCategory(id, page){
     const url = `${ConfigApp.URL}json/data_diets.php?category=${id}&page=${page}&limit=8&order=desc`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -153,7 +160,7 @@ export async function getDietById(id){
     const url = `${ConfigApp.URL}json/data_diets.php?id=${id}&limit=1`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -164,7 +171,7 @@ export async function getLatestProducts(page){
     const url = `${ConfigApp.URL}json/data_products.php?page=${page}&limit=8`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -175,7 +182,7 @@ export async function getFeaturedProducts(){
     const url = `${ConfigApp.URL}json/data_products.php?featured=1`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -186,7 +193,7 @@ export async function getProductById(id){
     const url = `${ConfigApp.URL}json/data_products.php?id=${id}&limit=1`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -197,7 +204,7 @@ export async function getProductsByType(id, page){
     const url = `${ConfigApp.URL}json/data_products.php?type=${id}&page=${page}&limit=8&order=desc`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -208,7 +215,7 @@ export async function getProductTypes(){
     const url = `${ConfigApp.URL}json/data_types.php`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     console.warn('Unable to load product types from the API:', error);
     return [];
@@ -220,7 +227,7 @@ export async function getLatestPosts(page){
     const url = `${ConfigApp.URL}json/data_posts.php?page=${page}&limit=6`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -231,7 +238,7 @@ export async function getPostsByTag(id, page){
     const url = `${ConfigApp.URL}json/data_posts.php?tag=${id}&page=${page}&limit=8&order=desc`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -242,7 +249,7 @@ export async function getPostById(id){
     const url = `${ConfigApp.URL}json/data_posts.php?id=${id}&limit=1`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -253,7 +260,7 @@ export async function getWorkoutByDay(id, day){
     const url = `${ConfigApp.URL}json/data_days.php?id=${id}&day=${day}`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -264,7 +271,7 @@ export async function getFeaturedPosts(){
     const url = `${ConfigApp.URL}json/data_posts.php?featured=1`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -275,7 +282,7 @@ export async function getPostTags(){
     const url = `${ConfigApp.URL}json/data_tags.php`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -287,7 +294,7 @@ export async function getStrings(){
   try {
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     
   }
@@ -298,7 +305,7 @@ export async function getGoals(page){
     const url = `${ConfigApp.URL}json/data_goals.php?page=${page}`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -309,7 +316,7 @@ export async function getCategories(page){
     const url = `${ConfigApp.URL}json/data_categories.php?page=${page}`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -320,7 +327,7 @@ export async function getLevels(page){
     const url = `${ConfigApp.URL}json/data_levels.php?page=${page}`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
@@ -331,7 +338,7 @@ export async function getBodyparts(page){
     const url = `${ConfigApp.URL}json/data_bodyparts.php?page=${page}`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     console.warn('Unable to load body parts from the API:', error);
     return [];
@@ -343,7 +350,7 @@ export async function getEquipments(page){
     const url = `${ConfigApp.URL}json/data_equipments.php?page=${page}`;
     let response = await fetch(url);
     let responseJson = await response.json();
-    return responseJson;
+    return normalizeMediaUrls(responseJson);
   } catch (error) {
     //console.error(error);
   }
