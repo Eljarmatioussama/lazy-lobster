@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ImageBackground, ScrollView, Linking, TouchableOpacity, Platform } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, ImageBackground, ScrollView } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from '../config/Styles';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
@@ -7,7 +7,7 @@ import { getWorkoutById, removeWorkoutBookmark, setWorkoutBookmark } from "../co
 import AppLoading from '../components/InnerLoading';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, IconButton } from 'react-native-paper';
-import { WebView } from 'react-native-webview';
+import VideoPlayer from '../components/VideoPlayer';
 import { Col, Grid } from 'react-native-easy-grid';
 import Days from '../components/Days';
 import LevelRate from '../components/LevelRate';
@@ -113,8 +113,6 @@ export default function WorkoutDetails(props) {
   }else{
 
  const introVideo = item.introVideo || item.intro_video || item.workout_intro_video;
- const youtubeMatch = introVideo && introVideo.match(/[?&]v=([^&]+)/);
- const videoUrl = youtubeMatch ? `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1&mute=1&controls=1&playsinline=1` : introVideo;
 
  return (
 
@@ -129,8 +127,7 @@ export default function WorkoutDetails(props) {
 
     <View>
 
-    {videoUrl ? (Platform.OS === 'web' ? (videoUrl.toLowerCase().includes('.mp4') ? React.createElement('video', {src: videoUrl, autoPlay: true, muted: true, loop: true, playsInline: true, controls: true, style: {width: '100%', height: Styles.HeaderImage.height, objectFit: 'cover'}}) : React.createElement('iframe', {src: videoUrl, title: 'Introduction video', allow: 'autoplay; fullscreen', style: {width: '100%', height: Styles.HeaderImage.height, border: 0}})) : <WebView source={{uri: videoUrl}} allowsInlineMediaPlayback mediaPlaybackRequiresUserAction={false} style={Styles.HeaderImage} />) : null}
-    {!videoUrl && <ImageBackground source={{uri: item.image}} style={Styles.HeaderImage} resizeMode={'cover'}>
+    {introVideo ? <VideoPlayer videoUrl={introVideo} thumbnail={item.image} title={item.title} onVideoCompleted={() => {}} /> : <ImageBackground source={{uri: item.image}} style={Styles.HeaderImage} resizeMode={'cover'}>
     <LinearGradient colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0.4)']} style={Styles.HeaderGradient}>
 
     <Text style={Styles.HeaderTitle}>{item.title}</Text>

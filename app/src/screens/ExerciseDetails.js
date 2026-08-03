@@ -13,7 +13,7 @@ import ColorsApp from '../config/ColorsApp';
 import { HTMLStyles } from '../config/HTMLStyles';
 import { HTMLStylesDark } from '../config/HTMLStylesDark';
 import HTMLView from 'react-native-render-html';
-import { useVideoPlayer, VideoView } from 'expo-video';
+import VideoPlayer from '../components/VideoPlayer';
 
 export default function SingleExercise(props) {
 
@@ -50,11 +50,6 @@ export default function SingleExercise(props) {
   const hasVideo = !!videoUrl
     && /^https?:\/\//i.test(videoUrl)
     && !/yourvideolink\.com/i.test(videoUrl);
-  const player = useVideoPlayer(hasVideo ? videoUrl : null, (videoPlayer) => {
-    videoPlayer.loop = true;
-    videoPlayer.muted = true;
-    videoPlayer.play();
-  });
   
   useEffect(() => {
     getExercisesById(id).then((response) => {
@@ -85,18 +80,7 @@ export default function SingleExercise(props) {
     <View style={Styles.ModalScreen}>
 
     {hasVideo ? (
-      <View style={[Styles.ExerciseImage, { overflow: 'hidden', borderRadius: 8, backgroundColor: '#000' }]}>
-        <VideoView
-          player={player}
-          nativeControls={false}
-          fullscreenOptions={{ enable: false }}
-          contentFit="cover"
-          style={{
-            height: Styles.ExerciseImage.height,
-            width: Styles.ExerciseImage.width,
-          }}
-        />
-      </View>
+      <VideoPlayer videoUrl={videoUrl} thumbnail={imageUrl} title={item.title} />
     ) : (
     <ImageBackground source={{uri: imageUrl}} style={Styles.ExerciseImage} resizeMode={'cover'} imageStyle={{borderRadius:8}}>
       <View style={Styles.ExerciseImageView} />

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { useVideoPlayer, VideoView } from 'expo-video';
+import VideoPlayer from '../components/VideoPlayer';
 import { IconButton } from 'react-native-paper';
 
 export default function Player(props) {
@@ -9,9 +9,6 @@ export default function Player(props) {
     const [inFullscreen2, setInFullsreen2] = React.useState(false);
     const { route } = props;
     const { url } = route.params;
-    const player = useVideoPlayer(url, (videoPlayer) => {
-      videoPlayer.loop = true;
-    });
 
     const closeVideo = async () => {
       await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
@@ -23,7 +20,6 @@ export default function Player(props) {
     const openFullScreen = async () => {
       await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT)
       setInFullsreen2(!inFullscreen2)
-      player.play();
     };
 
     const closeFullScreen = async () => {
@@ -58,17 +54,7 @@ export default function Player(props) {
 
   return (
     <View style={styles.container}>
-    <VideoView
-    player={player}
-    nativeControls
-    contentFit="contain"
-    fullscreenOptions={{ enable: false }}
-    style={{
-      alignSelf:'center',
-      height: inFullscreen2 ? Dimensions.get('window').width : 220,
-      width: inFullscreen2 ? Dimensions.get('window').height : 380,
-    }}
-  />
+    <VideoPlayer videoUrl={url} title="Video" />
   </View>
   );
 }
