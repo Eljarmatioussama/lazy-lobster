@@ -27,7 +27,6 @@ export default function SingleDay(props) {
     const language = contextState.language;
     const Strings = Languages[language].texts;
 
-    const rightIcon = I18nManager.isRTL ? "chevron-left" : "chevron-right";
 
     const onClickItem = (id, title) => {
       navigation.navigate('exercisedetails', {id, title});
@@ -92,7 +91,7 @@ if(size(items) >= 1){
             <Image source={{uri: item.image}} style={Styles.itemListImage2} resizeMode={"center"} />
             </View>
             </View>}
-          right={props => <List.Icon {...props} icon={rightIcon} style={{alignSelf: 'center'}} style={{opacity:0.5, alignSelf:'center'}} />}
+          right={props => <List.Icon {...props} icon="drag-vertical" color="#8fa3ad" style={{opacity:0.7, alignSelf:'center'}} />}
           />
           </TouchableScale>
             );
