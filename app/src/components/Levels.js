@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View} from 'react-native';
+import { ScrollView, View, ImageBackground, TouchableOpacity, useWindowDimensions} from 'react-native';
+import Styles from '../config/Styles';
 import {map} from 'lodash';
 import Loading from './InnerLoading';
 import {getLevels} from "../config/DataApp";
-import { Chip } from 'react-native-paper';
+import { Text } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Levels() {
+
+  const { width } = useWindowDimensions();
+  const cardWidth = Math.max(130, width * 0.35);
+  const cardHeight = Math.max(96, cardWidth * 0.8);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
@@ -35,7 +41,7 @@ export default function Levels() {
           showsHorizontalScrollIndicator={false}
         >
         {map(items, (item, index) => (
-        <RenderItem key={index} item={item} />
+        <RenderItem key={index} item={item} cardWidth={cardWidth} cardHeight={cardHeight} />
 
           ))}
       </ScrollView>
@@ -56,13 +62,19 @@ function RenderItem(props) {
     });    
   };
 
-    const { item } = props;
+    const { item, cardWidth, cardHeight } = props;
     const { id, title } = item;
 
       return (
           
-    <View style={{marginLeft: 20}}>
-        <Chip icon="lightning-bolt" mode="outlined" onPress={() => onChangeScreen(id, title)}>{item.title}</Chip>
+    <View style={[Styles.card6_view, {width: cardWidth}]}>
+      <TouchableOpacity onPress={() => onChangeScreen(id, title)} activeOpacity={0.9}>
+        <ImageBackground source={{uri: item.image}} style={[Styles.card6_background, {width: cardWidth, height: cardHeight}]} imageStyle={{borderRadius: 8}}>
+          <LinearGradient colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.7)']} style={[Styles.card6_gradient, {width: cardWidth, height: cardHeight}]}>
+            <Text style={Styles.card6_title} numberOfLines={2}>{item.title}</Text>
+          </LinearGradient>
+        </ImageBackground>
+      </TouchableOpacity>
     </View>
 
       )

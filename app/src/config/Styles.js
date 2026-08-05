@@ -335,7 +335,9 @@ justifyContent: 'flex-end',
 padding: 15,
 marginBottom: 20,
 marginLeft: 25,
-position:'relative'
+position:'relative',
+borderRadius:20,
+shadowColor:'#102a43', shadowOpacity:0.12, shadowRadius:10, shadowOffset:{width:0,height:4}, elevation:3
 },
 
 card1_title:{
@@ -419,7 +421,9 @@ alignItems: 'flex-start',
 alignSelf: 'center', 
 justifyContent: 'flex-end',
 padding: 15,
-marginBottom: 20
+marginBottom: 20,
+borderRadius:20,
+shadowColor:'#102a43', shadowOpacity:0.12, shadowRadius:10, shadowOffset:{width:0,height:4}, elevation:3
 },
 
 card3_viewicon:{

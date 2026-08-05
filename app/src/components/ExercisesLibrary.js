@@ -21,10 +21,10 @@ export default function ExercisesLibrary(){
 
 	return(
         <TouchableOpacity activeOpacity={0.9} onPress={() => onChangeScreen('exercises')}>
-		<View style={{flex: 1, marginHorizontal:18, borderRadius:8, marginBottom:15}}>
+		<View style={{flex: 1, marginHorizontal:18, borderRadius:24, marginBottom:24, backgroundColor:'#fff', shadowColor:'#000', shadowOpacity:0.14, shadowRadius:18, shadowOffset:{width:0,height:8}, elevation:6}}>
 		<Card
-        style={{justifyContent: 'center', alignItems: 'flex-start', width:'100%', height:180, borderRadius:8}}>
-            <View style={{paddingHorizontal:18}}>
+        style={{justifyContent: 'center', alignItems: 'flex-start', width:'100%', height:190, borderRadius:24, backgroundColor:'#FFFFFF', elevation:0}}>
+            <View style={{paddingHorizontal:22, paddingVertical:18, width:'100%'}}>
             <Title style={{fontWeight: 'bold'}}>{Strings.ST59}</Title>
 		    <Text style={{marginBottom: 15, opacity:0.5}}>{Strings.ST60}</Text>
             <View style={{flexDirection:'row', alignItems:'center', alignContent:'center', justifyContent:'center', backgroundColor:ColorsApp.PRIMARY, paddingVertical:10, paddingHorizontal:12, borderRadius:8}}>

@@ -8,7 +8,6 @@ import Goals from '../components/Goals';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
 import Levels from '../components/Levels';
-import LatestDiets from '../components/LatestDiets';
 import CollapsibleHeader from '../components/CollapsibleHeader';
 
 export default function Home(props) {
@@ -25,7 +24,6 @@ export default function Home(props) {
     {key: 'goals', content: <><Heading title={Strings.ST22} button={() => onChangeScreen('goals')}/><Goals/></>},
     {key: 'levels', content: <><Heading title={Strings.ST24} button={() => onChangeScreen('levels')}/><Levels/></>},
     {key: 'library', content: <ExercisesLibrary/>},
-    {key: 'diets', content: <><Heading title={Strings.ST47} button={() => onChangeScreen('diets')}/><LatestDiets/></>},
   ];
   return <SafeAreaView style={{flex: 1}}><CollapsibleHeader title={Strings.ST1} navigation={props.navigation} scrollY={scrollY}/><Animated.FlatList style={{width: '100%', height: Math.max(0, height - 56)}} data={sections} renderItem={({item}) => <View style={{width: '100%'}}>{item.content}</View>} keyExtractor={(item) => item.key} contentContainerStyle={{paddingTop:68,paddingBottom:32}} showsVerticalScrollIndicator={false} removeClippedSubviews={false} onScroll={Animated.event([{nativeEvent:{contentOffset:{y:scrollY}}}],{useNativeDriver:false})} scrollEventThrottle={16}/></SafeAreaView>;
 }
