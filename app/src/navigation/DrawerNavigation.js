@@ -26,7 +26,7 @@ function BottomBar({ navigation }) {
   return (
     <View style={{ flexDirection: "row", backgroundColor: background, borderTopWidth: 1, borderTopColor: theme === "dark" ? "#292929" : "#e8e8e8", paddingBottom: Math.max(insets.bottom, 6), paddingTop: 6 }}>
       {items.map((item) => (
-        <Pressable key={item.screen} accessibilityRole="button" accessibilityLabel={item.label} onPress={() => { navigation.navigate("App"); requestAnimationFrame(() => navigation.navigate("App", { screen: "Main", params: { screen: item.screen } })); }} style={{ flex: 1, alignItems: "center", justifyContent: "center", minHeight: 48 }}>
+        <Pressable key={item.screen} accessibilityRole="button" accessibilityLabel={item.label} onPress={() => navigation.navigate("App", { screen: "Main", params: { screen: item.screen }, merge: true })} style={{ flex: 1, alignItems: "center", justifyContent: "center", minHeight: 48 }}>
           <Icon name={item.icon} size={23} color={foreground} />
           <Text style={{ color: foreground, fontSize: 11, marginTop: 2 }}>{item.label}</Text>
         </Pressable>
