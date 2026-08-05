@@ -48,9 +48,9 @@ export default function LatestWorkouts() {
         >
         {items.map((item, index) => (
     
-    <View key={item.id || index} style={{width: cardWidth, marginRight: 12}}>
+    <View key={item.id || index} style={{width: cardWidth, marginRight: 12, borderRadius: 8, overflow: 'hidden', backgroundColor: '#fff'}}>
     <TouchableOpacity activeOpacity={0.9} onPress={() => onChangeScreen(item.id, item.title)}>
-        <ImageBackground source={{uri: item.image}} style={[Styles.card1_background, {width: '100%', height: cardHeight, marginLeft: 0, marginBottom: 0}]} imageStyle={{borderRadius: 8}}>
+        <ImageBackground source={{uri: item.image}} resizeMode="cover" style={{width: '100%', height: cardHeight, margin: 0, borderRadius: 8, overflow: 'hidden'}} imageStyle={{borderRadius: 8}}>
           <LinearGradient colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.7)']} style={[Styles.card1_gradient, {height: cardHeight}]}>
 
             {/*item.price === "premium" ? <View style={Styles.card1_viewicon}><Icon name="lock" style={Styles.card1_icon}/></View> : null */}
