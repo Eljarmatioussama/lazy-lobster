@@ -55,7 +55,7 @@ const buttonBack = (navigation) => {
 		if (navigation.canGoBack()) navigation.goBack();
 	};
 	return (
-		<IconButton icon={I18nManager.isRTL ? "arrow-right" : "arrow-left"} iconColor={theme === "light" ? '#000' : '#fff'} style={{marginLeft:15}} size={24} onPress={goBack}/>
+		<IconButton icon={I18nManager.isRTL ? "chevron-right" : "chevron-left"} iconColor={theme === "light" ? '#000' : '#fff'} style={{marginLeft:8, marginVertical:0}} size={32} onPress={goBack}/>
 		)
 };
 
@@ -84,7 +84,7 @@ return (
     <RootStack.Navigator screenOptions={navigatorOptions}>
       <RootStack.Screen name="Main" component={StackNavigation} options={{ headerShown: false }}/>
       <RootStack.Screen name="exercisedetails" component={ExerciseDetails} options={({navigation}) => ({presentation: 'fullScreenModal', title: Strings.ST80, headerLeft: () => buttonClose(navigation)})} />
-      <RootStack.Screen name="workoutdetails" component={WorkoutDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
+      <RootStack.Screen name="workoutdetails" component={WorkoutDetails} options={{presentation: 'fullScreenModal', headerShown: false, header: () => null}} />
       <RootStack.Screen name="dietdetails" component={DietDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="productdetails" component={ProductDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="postdetails" component={PostDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />

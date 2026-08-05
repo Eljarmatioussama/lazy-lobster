@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ImageBackground, ScrollView } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, ImageBackground, ScrollView, Animated } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from '../config/Styles';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
@@ -13,6 +13,7 @@ import Days from '../components/Days';
 import LevelRate from '../components/LevelRate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import usePreferences from '../hooks/usePreferences';
+import CollapsibleHeader from '../components/CollapsibleHeader';
 
 export default function WorkoutDetails(props) {
 
@@ -28,6 +29,7 @@ export default function WorkoutDetails(props) {
   const language = contextState.language;
   const Strings = Languages[language].texts;
   const {theme} = usePreferences();
+  const scrollY = React.useRef(new Animated.Value(0)).current;
 
   const renderBookMark = async (id) => {
     await AsyncStorage.getItem('workoutsFav').then(token => {
@@ -78,20 +80,18 @@ export default function WorkoutDetails(props) {
 
     if (!isBookmark) {
         return (
-          <IconButton icon="heart-outline" color={'white'} size={24} style={{marginRight: 15}} onPress={() => saveBookmark(item.id, item.title, item.image)}/>
+          <IconButton icon="heart-outline" mode="contained" containerColor="#f0f0f0" iconColor="#111" size={24} style={{marginRight: 8, marginVertical:0}} onPress={() => saveBookmark(item.id, item.title, item.image)}/>
           )
       }else{
         return (
-          <IconButton icon="heart" color={"red"} size={24} style={{marginRight: 15}} onPress={() => removeBookmark(item.id)}/>
+          <IconButton icon="heart" mode="contained" containerColor="#f0f0f0" iconColor="red" size={24} style={{marginRight: 8, marginVertical:0}} onPress={() => removeBookmark(item.id)}/>
           )
         }
       }
 
       useEffect(() => {
 
-        props.navigation.setOptions({
-          headerRight: () => renderButtonFav(),
-        });
+        props.navigation.setOptions({headerShown: false});
 
       }, [isBookmark, item]);
 
@@ -118,11 +118,13 @@ export default function WorkoutDetails(props) {
 
  return (
 
-  <ScrollView
+  <><CollapsibleHeader title="" navigation={navigation} scrollY={scrollY} left={<IconButton icon="chevron-left" mode="contained" containerColor="#dceee5" size={24} style={{marginVertical:0}} onPress={() => navigation.goBack()} />} right={renderButtonFav()} /><Animated.ScrollView
   style={{flex: 1}}
   contentContainerStyle={{paddingBottom: 32}}
   showsHorizontalScrollIndicator={false}
   showsVerticalScrollIndicator={false}
+  onScroll={Animated.event([{nativeEvent:{contentOffset:{y:scrollY}}}], {useNativeDriver:false})}
+  scrollEventThrottle={16}
 >
     
 <SafeAreaView>
@@ -160,7 +162,7 @@ export default function WorkoutDetails(props) {
 
     </View>
     </SafeAreaView>
-    </ScrollView>
+    </Animated.ScrollView></>
 
       );
 

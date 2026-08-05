@@ -22,7 +22,7 @@ const contextState = React.useContext(LanguageContext);
 
   const buttonBack = (navigation) => {
 	return (
-		<IconButton icon={I18nManager.isRTL ? "arrow-right" : "arrow-left"} style={{marginLeft:15}} size={24} onPress={() => navigation.goBack()}/>
+		<IconButton icon={I18nManager.isRTL ? "chevron-right" : "chevron-left"} style={{marginLeft:8, marginVertical:0}} size={32} onPress={() => navigation.goBack()}/>
 		)
 };
 

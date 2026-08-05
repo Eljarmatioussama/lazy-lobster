@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, View, ImageBackground, TouchableOpacity, useWindowDimensions } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
+import { FlatList, View, ImageBackground, TouchableOpacity, useWindowDimensions, Animated } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from '../config/Styles';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
@@ -9,6 +9,7 @@ import { Text, Button, IconButton } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import LevelRate from '../components/LevelRate';
 import LoadMoreButton from '../components/LoadMoreButton';
+import CollapsibleHeader from '../components/CollapsibleHeader';
 
 export default function Workouts(props) {
 
@@ -21,6 +22,7 @@ export default function Workouts(props) {
   const [items, setItems] = useState([]);
   const [showButton, setshowButton] = useState(true);
   const [loading, setLoading] = useState(false);
+  const scrollY = React.useRef(new Animated.Value(0)).current;
 
   const contextState = React.useContext(LanguageContext);
   const language = contextState.language;
@@ -109,9 +111,7 @@ export default function Workouts(props) {
 
   useEffect(() => {
   
-    props.navigation.setOptions({
-        headerRight: () => buttonSearch()
-    });
+    props.navigation.setOptions({headerShown: false});
   
   }, []);
 
@@ -135,17 +135,19 @@ export default function Workouts(props) {
  return (
 
   <SafeAreaView style={{flex: 1}}>
-    <FlatList
+    <CollapsibleHeader title={Strings.ST5} navigation={props.navigation} scrollY={scrollY} right={<IconButton icon="magnify" size={24} onPress={() => onChangeScreen('searchworkout')} />} /><Animated.FlatList
       style={{width: '100%', height: Math.max(0, height - 56)}}
       data={items}
       renderItem={renderWorkout}
       keyExtractor={(item, index) => String(item.id ?? index)}
       ListHeaderComponent={renderHeader}
       ListFooterComponent={renderButton}
-      contentContainerStyle={{paddingTop: 10, paddingBottom: 32}}
+      contentContainerStyle={{paddingTop: 64, paddingBottom: 32}}
       scrollEnabled={true}
       nestedScrollEnabled={true}
       showsVerticalScrollIndicator={false}
+      onScroll={Animated.event([{nativeEvent:{contentOffset:{y:scrollY}}}],{useNativeDriver:false})}
+      scrollEventThrottle={16}
     />
   </SafeAreaView>
 
