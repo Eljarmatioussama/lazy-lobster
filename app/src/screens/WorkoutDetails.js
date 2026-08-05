@@ -118,7 +118,7 @@ export default function WorkoutDetails(props) {
 
  return (
 
-  <><CollapsibleHeader title="" navigation={navigation} scrollY={scrollY} left={<IconButton icon="chevron-left" mode="contained" containerColor="#dceee5" size={24} style={{marginVertical:0}} onPress={() => navigation.goBack()} />} right={renderButtonFav()} /><Animated.ScrollView
+  <><CollapsibleHeader title="" navigation={navigation} scrollY={scrollY} left={<IconButton icon="chevron-left" mode="contained" containerColor="#f0f0f0" size={24} style={{marginVertical:0}} onPress={() => navigation.goBack()} />} right={renderButtonFav()} /><Animated.ScrollView
   style={{flex: 1}}
   contentContainerStyle={{paddingTop: 32, paddingBottom: 32}}
   showsHorizontalScrollIndicator={false}

@@ -67,7 +67,7 @@ if(size(items) >= 1){
     
       <View style={{flex: 1}}>
           <CollapsibleHeader title="" navigation={navigation} scrollY={scrollY}
-            left={<IconButton icon="chevron-left" mode="contained" containerColor="#dceee5" size={24} style={{marginVertical: 0}} onPress={() => navigation.goBack()} />} />
+            left={<IconButton icon="chevron-left" mode="contained" containerColor="#f0f0f0" size={24} style={{marginVertical: 0}} onPress={() => navigation.goBack()} />} />
       <SafeAreaView>
       
       
