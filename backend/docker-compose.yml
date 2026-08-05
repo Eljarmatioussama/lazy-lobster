@@ -38,6 +38,7 @@ services:
       - ./migrations/001_add_yoga_tables.sql:/docker-entrypoint-initdb.d/002_yoga.sql:ro
       - ./migrations/002_add_app_users.sql:/docker-entrypoint-initdb.d/003_app_users.sql:ro
       - ./migrations/003_add_workout_intro_video.sql:/docker-entrypoint-initdb.d/004_workout_intro_video.sql:ro
+      - ./migrations/004_add_exercise_video_duration.sql:/docker-entrypoint-initdb.d/005_exercise_video_duration.sql:ro
 
 
   phpmyadmin:

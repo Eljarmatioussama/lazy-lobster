@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$exercise_equipment = $_POST['exercise_equipment'];
 	$exercise_level = cleardata($_POST['exercise_level']);
 	$exercise_video = cleardata($_POST['exercise_video']);
+	$exercise_video_duration = (int)($_POST['exercise_video_duration'] ?? 0);
 	$exercise_tips = $_POST['exercise_tips'];
 	$exercise_instructions = $_POST['exercise_instructions'];
 	$exercise_id = cleardata($_POST['exercise_id']);
@@ -43,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 $statment = $connect->prepare(
-	'UPDATE exercises SET exercise_title = :exercise_title, exercise_reps = :exercise_reps, exercise_sets = :exercise_sets, exercise_rest = :exercise_rest, exercise_equipment = :exercise_equipment, exercise_level = :exercise_level, exercise_video = :exercise_video, exercise_tips = :exercise_tips, exercise_instructions = :exercise_instructions, exercise_image = :exercise_image WHERE exercise_id = :exercise_id'
+	'UPDATE exercises SET exercise_title = :exercise_title, exercise_reps = :exercise_reps, exercise_sets = :exercise_sets, exercise_rest = :exercise_rest, exercise_equipment = :exercise_equipment, exercise_level = :exercise_level, exercise_video = :exercise_video, exercise_video_duration = :exercise_video_duration, exercise_tips = :exercise_tips, exercise_instructions = :exercise_instructions, exercise_image = :exercise_image WHERE exercise_id = :exercise_id'
 	);
 
 $statment->execute(array(
@@ -55,6 +56,7 @@ $statment->execute(array(
 		':exercise_equipment' => $exercise_equipment,
 		':exercise_level' => $exercise_level,
 		':exercise_video' => $exercise_video,
+		':exercise_video_duration' => $exercise_video_duration,
 		':exercise_tips' => $exercise_tips,
 		':exercise_instructions' => $exercise_instructions,
 		':exercise_image' => $exercise_image,

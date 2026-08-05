@@ -68,17 +68,10 @@
    </select>
 
 
-   <label class="control-label">Rest</label>
-   <input value="<?php echo $exercise['exercise_rest']; ?>" placeholder="Rest" name="exercise_rest" class="form-control" required="">
-
-   <label class="control-label">Sets</label>
-   <input value="<?php echo $exercise['exercise_sets']; ?>" placeholder="Sets" name="exercise_sets" class="form-control" required="">
-
-   <label class="control-label">Reps</label>
-   <input value="<?php echo $exercise['exercise_reps']; ?>" placeholder="Reps" name="exercise_reps" class="form-control" required="">
 
    <label class="control-label">Video Url (MP4)</label>
    <input type="text" value="<?php echo $exercise['exercise_video']; ?>" placeholder="Video Url (MP4)" name="exercise_video" class="form-control" required="">
+   <label class="control-label">Video Duration (seconds)</label><input type="number" min="1" value="<?php echo (int)($exercise['exercise_video_duration'] ?? 0); ?>" name="exercise_video_duration" class="form-control">
 
    <label class="control-label">Instructions</label>
    <textarea value="" name="exercise_instructions" class="advancedtinymce form-control" id="instructions" required=""><?php echo $exercise['exercise_instructions']; ?></textarea>

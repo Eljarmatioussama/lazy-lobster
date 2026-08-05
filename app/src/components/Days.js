@@ -10,6 +10,7 @@ import LanguageContext from '../languages/LanguageContext';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { auth } from '../config/ConfigFirebase';
+import { getWorkoutByDay } from '../config/DataApp';
 
 export default function Days(props) {
 
@@ -32,6 +33,7 @@ export default function Days(props) {
 
     const totalDays = Array.from(Array(Number).keys());
     const [completedDays, setCompletedDays] = useState([]);
+    const [dayDurations, setDayDurations] = useState({});
 
     useEffect(() => {
         const uid = auth.currentUser?.uid;
@@ -39,6 +41,13 @@ export default function Days(props) {
         AsyncStorage.getItem(`workoutProgress_${uid}_${WorkoutId}`).then((value) => {
             if (value) setCompletedDays(JSON.parse(value));
         });
+    }, [WorkoutId]);
+
+    useEffect(() => {
+      weekdays.forEach((_, index) => getWorkoutByDay(WorkoutId, index + 1).then(items => {
+        const total = (items || []).reduce((sum, item) => sum + Number(item.video_duration || 0), 0);
+        setDayDurations(previous => ({...previous, [index + 1]: total}));
+      }));
     }, [WorkoutId]);
 
     const navigation = useNavigation();
@@ -60,11 +69,7 @@ export default function Days(props) {
     <View key={i} style={Styles.DayCard}>
       <View style={Styles.DayCardContent}>
         <Text style={Styles.DayCardLabel}>{weekdays[i]}</Text>
-        <Text style={Styles.DayCardTitle}>{dayDetails[i]?.[0] || 'Workout Session'}</Text>
-        <Text style={Styles.DayCardDuration}>{dayDetails[i]?.[1] || '20 min'}</Text>
-        <Button compact mode="text" icon={completedDays.includes(i + 1) ? 'check' : 'play'} onPress={() => onChangeScreen(WorkoutId, i+1, weekdays[i])} labelStyle={[Styles.DayCardAction, completedDays.includes(i + 1) && Styles.DayCardCompleted]}>
-          {completedDays.includes(i + 1) ? 'Continue' : 'Start'}
-        </Button>
+        <Text style={Styles.DayCardDuration}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : 'Calculating…'}</Text>
       </View>
     </View>
 

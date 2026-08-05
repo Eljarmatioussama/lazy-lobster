@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$exercise_sets = $_POST['exercise_sets'];
 	$exercise_rest = cleardata($_POST['exercise_rest']);
 	$exercise_video = cleardata($_POST['exercise_video']);
+	$exercise_video_duration = (int)($_POST['exercise_video_duration'] ?? 0);
 	$exercise_tips = $_POST['exercise_tips'];
 	$exercise_instructions = $_POST['exercise_instructions'];
 	$exercise_image = $_FILES['exercise_image']['tmp_name'];
@@ -37,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	move_uploaded_file($exercise_image, $exercise_image_upload . 'exercise_' . $renamefile);
 
 	$statment = $connect->prepare(
-		'INSERT INTO exercises (exercise_id,exercise_title,exercise_equipment,exercise_level,exercise_reps,exercise_sets,exercise_rest,exercise_video,exercise_tips,exercise_instructions,exercise_image) VALUES (null, :exercise_title, :exercise_equipment, :exercise_level, :exercise_reps, :exercise_sets, :exercise_rest, :exercise_video, :exercise_tips, :exercise_instructions, :exercise_image)'
+		'INSERT INTO exercises (exercise_id,exercise_title,exercise_equipment,exercise_level,exercise_reps,exercise_sets,exercise_rest,exercise_video,exercise_video_duration,exercise_tips,exercise_instructions,exercise_image) VALUES (null, :exercise_title, :exercise_equipment, :exercise_level, :exercise_reps, :exercise_sets, :exercise_rest, :exercise_video, :exercise_video_duration, :exercise_tips, :exercise_instructions, :exercise_image)'
 		);
 
 	$statment->execute(array(
@@ -48,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		':exercise_sets' => $exercise_sets,
 		':exercise_rest' => $exercise_rest,
 		':exercise_video' => $exercise_video,
+		':exercise_video_duration' => $exercise_video_duration,
 		':exercise_tips' => $exercise_tips,
 		':exercise_instructions' => $exercise_instructions,
 		':exercise_image' => 'exercise_' . $renamefile

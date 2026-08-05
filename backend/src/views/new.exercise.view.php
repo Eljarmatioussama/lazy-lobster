@@ -51,17 +51,10 @@
     <?php endforeach; ?>
    </select>
 
-   <label class="control-label">Rest</label>
-   <input type="text" value="" placeholder="Rest" name="exercise_rest" class="form-control" required="">
-
-   <label class="control-label">Sets</label>
-   <input type="text" value="" placeholder="Sets" name="exercise_sets" class="form-control" required="">
-
-   <label class="control-label">Reps</label>
-   <input type="text" value="" placeholder="Reps" name="exercise_reps" class="form-control" required="">
 
    <label class="control-label">Video Url (MP4)</label>
    <input type="text" value="" placeholder="Video Url (MP4)" name="exercise_video" class="form-control" required="">
+   <label class="control-label">Video Duration (seconds)</label><input type="number" min="1" name="exercise_video_duration" class="form-control">
 
    <label class="control-label">Instructions</label>
    <textarea value="" name="exercise_instructions" class="advancedtinymce form-control" id="instructions" required=""></textarea>

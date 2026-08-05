@@ -91,7 +91,8 @@ if(getParamsID() && getParamsDay()){
 	    $tips = $row['exercise_tips'];
 	    $instructions = $row['exercise_instructions'];
 	    $equipment_title = $row['equipment_title'];
-	    $level_title = $row['level_title'];
+		$level_title = $row['level_title'];
+		$video_duration = (int)($row['exercise_video_duration'] ?? 0);
 
 		$data[] = array(
 		'id'=> $id,
@@ -107,6 +108,7 @@ if(getParamsID() && getParamsDay()){
 		'instructions'=> $instructions,
 		'equipment_title'=> html_entity_decode($equipment_title),
 		'level_title'=> html_entity_decode($level_title),
+		'video_duration'=> $video_duration,
 		);
 	}
 

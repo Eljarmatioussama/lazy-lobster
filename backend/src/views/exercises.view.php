@@ -20,9 +20,6 @@
     { mData: 'bodypart_title', "width": "12%"},
     { mData: 'equipment_title', "width": "10%" },
     { mData: 'level_title', "width": "10%" },
-    { mData: 'exercise_reps', "width": "5%" },
-    { mData: 'exercise_rest', "width": "8%" },
-    { mData: 'exercise_sets', "width": "5%" },
     { "mData": null,
     "width": "20%",
     "className": "text-center",
@@ -66,9 +63,6 @@
                 <th>Bodyparts</th>
                 <th>Equi.</th>
                 <th>Level</th>
-                <th>Reps</th>
-                <th>Rest</th>
-                <th>Sets</th>
                 <th>Actions</th>
             </tr>
         </thead>

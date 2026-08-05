@@ -90,28 +90,6 @@ export default function SingleExercise(props) {
     <Text style={Styles.ExerciseTitle}>{item.title}</Text>
     <Text style={Styles.ExerciseSubTitle}></Text>
 
-    <Grid style={{marginTop:20}}>
-
-      <Col style={Styles.ExerciseCol}>
-      <Icon name="backup-restore" style={Styles.ExerciseColIcon}/>
-      <Text style={Styles.ExerciseColTitle}>{Strings.ST83}</Text>
-      <Text style={Styles.ExerciseColSubTitle}>{item.reps}</Text>
-      </Col>
-
-      <Col style={Styles.ExerciseCol}>
-      <Icon name="checkbox-marked-circle-outline" style={Styles.ExerciseColIcon}/>
-      <Text style={Styles.ExerciseColTitle}>{Strings.ST82}</Text>
-      <Text style={Styles.ExerciseColSubTitle}>{item.sets}</Text>
-      </Col>
-
-      <Col style={Styles.ExerciseCol}>
-      <Icon name="timer-outline" style={Styles.ExerciseColIcon}/>
-      <Text style={Styles.ExerciseColTitle}>{Strings.ST81}</Text>
-      <Text style={Styles.ExerciseColSubTitle}>{item.rest}</Text>
-      </Col>
-
-    </Grid>
-
 
     <View style={{marginVertical:20, marginBottom:10}}>
 
