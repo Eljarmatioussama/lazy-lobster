@@ -912,11 +912,18 @@ position:'absolute'
 
 DayCard:{
 marginHorizontal:20,
-paddingVertical:16,
-paddingHorizontal:4,
-borderTopWidth:1,
-borderBottomWidth:1,
-borderColor:'#e5e5e5',
+marginBottom:10,
+paddingVertical:14,
+paddingHorizontal:16,
+backgroundColor:'#fff',
+borderRadius:14,
+borderWidth:1,
+borderColor:'#e7ecef',
+shadowColor:'#102a43',
+shadowOpacity:0.08,
+shadowRadius:6,
+shadowOffset:{width:0,height:2},
+elevation:2,
 flexDirection:'row',
 position:'relative',
 minHeight:112
