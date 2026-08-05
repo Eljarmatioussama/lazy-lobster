@@ -29,6 +29,7 @@
     "expo-keep-awake": "~15.0.8",
     "expo-linear-gradient": "~15.0.8",
     "expo-screen-orientation": "~9.0.9",
+    "expo-sensors": "^57.0.2",
     "expo-splash-screen": "~31.0.13",
     "expo-status-bar": "~3.0.9",
     "expo-updates": "~29.0.19",

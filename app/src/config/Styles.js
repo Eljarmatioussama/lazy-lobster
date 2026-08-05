@@ -930,18 +930,22 @@ shadowOffset:{width:0,height:2},
 elevation:2,
 flexDirection:'row',
 position:'relative',
+overflow:'hidden',
 minHeight:112
 },
 
 DayCardContent:{
 flex:1,
-paddingRight:30
+paddingRight:0,
+alignItems:'center',
+justifyContent:'center'
 },
 
 DayCardLabel:{
 fontSize:16,
 fontWeight:'700',
-marginBottom:5
+marginBottom:5,
+textAlign:'center'
 },
 
 DayCardTitle:{
@@ -952,7 +956,8 @@ marginBottom:3
 DayCardDuration:{
 fontSize:14,
 opacity:0.65,
-marginBottom:10
+marginBottom:10,
+textAlign:'center'
 },
 
 DayCardAction:{

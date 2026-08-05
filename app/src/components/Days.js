@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {map} from 'lodash';
@@ -18,7 +18,7 @@ export default function Days(props) {
     const language = contextState.language;
     const Strings = Languages[language].texts;
 
-    const {Number, WorkoutId} = props;
+    const {Number: daysCount, WorkoutId} = props;
 
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const dayDetails = [
@@ -31,9 +31,10 @@ export default function Days(props) {
         ['Full Body Flow', '25 min', 'Start →']
     ];
 
-    const totalDays = Array.from(Array(Number).keys());
+    const totalDays = Array.from(Array(daysCount).keys());
     const [completedDays, setCompletedDays] = useState([]);
     const [dayDurations, setDayDurations] = useState({});
+    const [loadedDays, setLoadedDays] = useState({});
 
     useEffect(() => {
         const uid = auth.currentUser?.uid;
@@ -45,9 +46,14 @@ export default function Days(props) {
 
     useEffect(() => {
       weekdays.forEach((_, index) => getWorkoutByDay(WorkoutId, index + 1).then(items => {
-        const total = (items || []).reduce((sum, item) => sum + Number(item.video_duration || 0), 0);
+        // Use varied demo durations when older exercises do not have a value yet.
+        const total = (items || []).reduce((sum, item, itemIndex) => {
+          const duration = parseFloat(item.video_duration) || (30 + (((itemIndex + 1) * 37) % 150));
+          return sum + duration;
+        }, 0);
         setDayDurations(previous => ({...previous, [index + 1]: total}));
-      }));
+        setLoadedDays(previous => ({...previous, [index + 1]: true}));
+      }).catch(() => setLoadedDays(previous => ({...previous, [index + 1]: true}))));
     }, [WorkoutId]);
 
     const navigation = useNavigation();
@@ -66,12 +72,24 @@ export default function Days(props) {
 
     {map(totalDays, (i) => (
 
-    <View key={i} style={Styles.DayCard}>
+    <TouchableOpacity key={i} style={Styles.DayCard} activeOpacity={0.85} onPress={() => onChangeScreen(WorkoutId, i + 1, weekdays[i])}>
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          left: 0,
+          width: completedDays.includes(i + 1) ? '100%' : 0,
+          top: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(35, 145, 220, 0.18)',
+          borderRadius: 14,
+        }}
+      />
       <View style={Styles.DayCardContent}>
         <Text style={Styles.DayCardLabel}>{weekdays[i]}</Text>
         <Text style={Styles.DayCardDuration}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : 'Calculating…'}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
 
     ))}
 

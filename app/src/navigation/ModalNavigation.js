@@ -55,7 +55,7 @@ const buttonBack = (navigation) => {
 		if (navigation.canGoBack()) navigation.goBack();
 	};
 	return (
-		<IconButton icon={I18nManager.isRTL ? "chevron-right" : "chevron-left"} iconColor={theme === "light" ? '#000' : '#fff'} style={{marginLeft:8, marginVertical:0}} size={32} onPress={goBack}/>
+		<IconButton icon={I18nManager.isRTL ? "chevron-right" : "chevron-left"} mode="contained" containerColor="#dceee5" size={24} style={{marginLeft:8, marginVertical:0}} onPress={goBack}/>
 		)
 };
 
@@ -90,7 +90,7 @@ return (
       <RootStack.Screen name="postdetails" component={PostDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="player" component={Player} options={{headerTransparent: true, title: null}} />
       <RootStack.Screen name="timer" component={Timer} options={{headerTransparent: true, title: null, headerLeft: null}} />
-      <RootStack.Screen name="singleday" component={SingleDay} options={({navigation}) => ({title: null, headerLeft: () => buttonClose(navigation)})} />
+      <RootStack.Screen name="singleday" component={SingleDay} options={({navigation}) => ({presentation: 'card', headerShown: true, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="completed" component={Completed} options={{headerTransparent: true, title: null, headerLeft: null}} />
     </RootStack.Navigator>
 	)

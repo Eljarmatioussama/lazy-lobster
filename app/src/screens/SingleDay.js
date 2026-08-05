@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Image, I18nManager } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View, Image, I18nManager, Animated } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from '../config/Styles';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
@@ -7,9 +7,10 @@ import { getWorkoutByDay } from "../config/DataApp";
 import {map, size} from 'lodash';
 import AppLoading from '../components/InnerLoading';
 import TouchableScale from 'react-native-touchable-scale';
-import { List, Text, FAB } from 'react-native-paper';
+import { List, Text, FAB, IconButton } from 'react-native-paper';
 import ColorsApp from '../config/ColorsApp';
 import RestDay from '../components/RestDay';
+import CollapsibleHeader from '../components/CollapsibleHeader';
 
 export default function SingleDay(props) {
 
@@ -19,6 +20,7 @@ export default function SingleDay(props) {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+    const scrollY = React.useRef(new Animated.Value(0)).current;
   
     const contextState = React.useContext(LanguageContext);
     const language = contextState.language;
@@ -36,8 +38,8 @@ export default function SingleDay(props) {
 
     useEffect(() => {
 
-        props.navigation.setOptions({
-          title:title,
+          props.navigation.setOptions({
+          headerShown: false,
         });
       
       }, []);
@@ -64,9 +66,14 @@ if(size(items) >= 1){
     return (
     
       <View style={{flex: 1}}>
-          <ScrollView
+          <CollapsibleHeader title="" navigation={navigation} scrollY={scrollY}
+            left={<IconButton icon="chevron-left" mode="contained" containerColor="#dceee5" size={24} style={{marginVertical: 0}} onPress={() => navigation.goBack()} />} />
+          <Animated.ScrollView
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingTop: 68, paddingBottom: 100}}
+        onScroll={Animated.event([{nativeEvent:{contentOffset:{y:scrollY}}}], {useNativeDriver:false})}
+        scrollEventThrottle={16}
       >
           
       <SafeAreaView>
@@ -96,7 +103,7 @@ if(size(items) >= 1){
             ))}
 
           </SafeAreaView>
-          </ScrollView>
+          </Animated.ScrollView>
 
           <View>
             <FAB
