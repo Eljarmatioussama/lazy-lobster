@@ -37,6 +37,6 @@ export default function VideoPlayer({videoUrl, onVideoCompleted}: VideoPlayerPro
 }
 
 const styles = StyleSheet.create({
-  card: {width: '100%', aspectRatio: 16 / 9, marginTop: 24, marginHorizontal:0, backgroundColor: '#000', overflow: 'hidden', borderRadius: 0},
-  video: {width: '100%', height: '100%'},
+  card: {width: '92%', alignSelf:'center', aspectRatio: 16 / 9, marginTop: 24, backgroundColor: '#000', overflow: 'hidden', borderRadius: 16},
+  video: {width: '100%', height: '100%', borderRadius: 16},
 });

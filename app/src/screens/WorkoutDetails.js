@@ -120,7 +120,7 @@ export default function WorkoutDetails(props) {
 
   <><CollapsibleHeader title="" navigation={navigation} scrollY={scrollY} left={<IconButton icon="chevron-left" mode="contained" containerColor="#dceee5" size={24} style={{marginVertical:0}} onPress={() => navigation.goBack()} />} right={renderButtonFav()} /><Animated.ScrollView
   style={{flex: 1}}
-  contentContainerStyle={{paddingBottom: 32}}
+  contentContainerStyle={{paddingTop: 32, paddingBottom: 32}}
   showsHorizontalScrollIndicator={false}
   showsVerticalScrollIndicator={false}
   onScroll={Animated.event([{nativeEvent:{contentOffset:{y:scrollY}}}], {useNativeDriver:false})}
