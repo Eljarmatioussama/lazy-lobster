@@ -4,7 +4,6 @@ import Styles from '../config/Styles';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
 import { getWorkoutByDay } from "../config/DataApp";
-import { getExerciseProgress } from "../config/DataApp";
 import {map, size} from 'lodash';
 import AppLoading from '../components/InnerLoading';
 import TouchableScale from 'react-native-touchable-scale';
@@ -23,7 +22,6 @@ export default function SingleDay(props) {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
-    const [progress, setProgress] = useState({});
     const scrollY = React.useRef(new Animated.Value(0)).current;
   
     const contextState = React.useContext(LanguageContext);
@@ -52,8 +50,6 @@ export default function SingleDay(props) {
     useEffect(() => {
         getWorkoutByDay(id, day).then((response) => {
             setItems(response);
-            Promise.all((response || []).map(async exercise => [exercise.id, await getExerciseProgress(exercise.id)]))
-              .then(values => setProgress(Object.fromEntries(values)));
             setIsLoaded(true);
         });
       }, []);
@@ -93,12 +89,7 @@ if(size(items) >= 1){
           rippleColor="transparent"
           left={props => 
             <View style={{flexDirection:'row', alignContent:'center', justifyContent:'center', alignItems:'center'}}>
-              <View style={{width:54, marginHorizontal:10, alignItems:'center'}}>
-                <Text style={{color: ColorsApp.PRIMARY, fontSize:12, fontWeight:'bold'}}>{Math.round(Number(progress[item.id] || 0))}%</Text>
-                <View style={{width:42, height:5, marginTop:4, borderRadius:3, backgroundColor:'#dce8e3', overflow:'hidden'}}>
-                  <View style={{width:`${Math.min(100, Number(progress[item.id] || 0))}%`, height:'100%', backgroundColor:ColorsApp.PRIMARY}} />
-                </View>
-              </View>
+              <Text style={{marginHorizontal:15, color: ColorsApp.PRIMARY, fontSize:18, fontWeight:'bold'}}>{i+1+'º'}</Text>
               <View style={Styles.itemListView2}>
             <Image source={{uri: item.image}} style={Styles.itemListImage2} resizeMode={"center"} />
             </View>

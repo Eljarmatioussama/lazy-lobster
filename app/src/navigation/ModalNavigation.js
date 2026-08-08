@@ -75,7 +75,7 @@ const buttonBackToHome = () => {
 			backgroundColor: theme === "light" ? '#fff' : '#000'
 		},
 		headerTitleAlign: 'center',
-		presentation: 'modal',
+    presentation: 'card',
 		gestureEnabled: false,
 		/*cardOverlayEnabled: true,
 		...TransitionPresets.ModalPresentationIOS*/

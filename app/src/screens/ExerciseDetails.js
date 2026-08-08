@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, ImageBackground, Platform, useWindowDimensions } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View, useWindowDimensions } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from '../config/Styles';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
@@ -13,7 +13,6 @@ import ColorsApp from '../config/ColorsApp';
 import { HTMLStyles } from '../config/HTMLStyles';
 import { HTMLStylesDark } from '../config/HTMLStylesDark';
 import HTMLView from 'react-native-render-html';
-import VideoPlayer from '../components/VideoPlayer';
 import ConfigApp from '../config/ConfigApp';
 
 export default function SingleExercise(props) {
@@ -43,11 +42,6 @@ export default function SingleExercise(props) {
     return value.replace('http://localhost:8080', ConfigApp.URL.replace(/\/$/, ''));
   };
 
-  const videoUrl = mediaUrl(item?.video);
-  const imageUrl = mediaUrl(item?.image);
-  const hasVideo = !!videoUrl
-    && /^https?:\/\//i.test(videoUrl)
-    && !/yourvideolink\.com/i.test(videoUrl);
   
   useEffect(() => {
     getExercisesById(id).then((response) => {
@@ -77,14 +71,6 @@ export default function SingleExercise(props) {
 
     <View style={Styles.ModalScreen}>
 
-    {hasVideo ? (
-      <VideoPlayer videoUrl={videoUrl} thumbnail={imageUrl} title={item.title} />
-    ) : (
-    <ImageBackground source={{uri: imageUrl}} style={Styles.ExerciseImage} resizeMode={'cover'} imageStyle={{borderRadius:8}}>
-      <View style={Styles.ExerciseImageView} />
-    </ImageBackground>
-    )}
-    
     <Text style={Styles.ExerciseTitle}>{item.title}</Text>
     <Text style={Styles.ExerciseSubTitle}></Text>
 

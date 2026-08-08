@@ -33,9 +33,22 @@ export default function SequencePlayer({route, navigation}) {
   }, [item.id]);
 
   useEffect(() => {
-    if (savedProgress > 0 && player.duration > 0) {
-      player.currentTime = player.duration * savedProgress / 100;
-    }
+    if (savedProgress <= 0) return;
+    let attempts = 0;
+    const seekToSavedPosition = setInterval(() => {
+      attempts += 1;
+      try {
+        if (player.duration > 0) {
+          player.currentTime = player.duration * savedProgress / 100;
+          clearInterval(seekToSavedPosition);
+        } else if (attempts >= 20) {
+          clearInterval(seekToSavedPosition);
+        }
+      } catch (_) {
+        clearInterval(seekToSavedPosition);
+      }
+    }, 500);
+    return () => clearInterval(seekToSavedPosition);
   }, [player, savedProgress, videoUrl]);
 
   const next = () => {
@@ -50,21 +63,30 @@ export default function SequencePlayer({route, navigation}) {
       if (index < items.length - 1) next();
     });
     const progress = player.addListener('timeUpdate', ({currentTime}) => {
-      const duration = player.duration;
-      if (duration > 0 && item.id) {
-        const percent = Math.min(100, Math.round((currentTime / duration) * 100));
-        saveExerciseProgress(item.id, percent);
-      }
-      if (index < items.length - 1 && duration > 0 && duration - currentTime <= 10) {
-        setShowNextPrompt(true);
-      }
+      try {
+        const duration = player.duration;
+        if (duration > 0 && item.id) {
+          const percent = Math.min(100, Math.round((currentTime / duration) * 100));
+          saveExerciseProgress(item.id, percent);
+        }
+        if (index < items.length - 1 && duration > 0 && duration - currentTime <= 10) setShowNextPrompt(true);
+      } catch (_) {}
     });
+    const saver = setInterval(() => {
+      try {
+        const duration = player.duration;
+        if (duration > 0 && item.id) {
+          saveExerciseProgress(item.id, Math.min(100, Math.round((player.currentTime / duration) * 100)));
+        }
+      } catch (_) {}
+    }, 1000);
     return () => {
       subscription.remove();
       progress.remove();
-      if (player.duration > 0 && item.id) {
-        saveExerciseProgress(item.id, Math.min(100, Math.round((player.currentTime / player.duration) * 100)));
-      }
+      clearInterval(saver);
+      try {
+        if (player.duration > 0 && item.id) saveExerciseProgress(item.id, Math.min(100, Math.round((player.currentTime / player.duration) * 100)));
+      } catch (_) {}
     };
   }, [player, index, items.length, item.id]);
 
