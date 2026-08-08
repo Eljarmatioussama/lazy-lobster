@@ -32,6 +32,7 @@ export default function Workouts(props) {
     props.navigation.navigate(screen);
   };
 
+
   const onClickItem = (id, title) => {
     props.navigation.navigate('workoutdetails', {id, title});
   };
@@ -135,7 +136,7 @@ export default function Workouts(props) {
  return (
 
   <SafeAreaView style={{flex: 1}}>
-    <CollapsibleHeader title={Strings.ST5} navigation={props.navigation} scrollY={scrollY} right={<IconButton icon="magnify" size={24} onPress={() => onChangeScreen('searchworkout')} />} /><Animated.FlatList
+    <CollapsibleHeader title={Strings.ST5} navigation={props.navigation} scrollY={scrollY} showProfile={false} right={<IconButton icon="magnify" mode="contained" containerColor="#f0f0f0" size={24} style={{margin:0}} onPress={() => onChangeScreen('searchworkout')} />} /><Animated.FlatList
       style={{width: '100%', height: Math.max(0, height - 56)}}
       data={items}
       renderItem={renderWorkout}

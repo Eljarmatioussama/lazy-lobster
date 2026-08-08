@@ -137,9 +137,9 @@ export async function getExercisesById(id){
   }
 }
 
-export async function getLatestDiets(page){
+export async function getLatestDiets(page, query){
   try {
-    const url = `${ConfigApp.URL}json/data_diets.php?page=${page}&limit=6`;
+    const url = `${ConfigApp.URL}json/data_diets.php?page=${page}&limit=6${query ? `&query=${encodeURIComponent(query)}` : ''}`;
     let response = await fetch(url);
     let responseJson = await response.json();
     return normalizeMediaUrls(responseJson);

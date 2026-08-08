@@ -35,6 +35,7 @@ import Favorites from '../screens/Favorites';
 import CustomWorkouts from '../screens/CustomWorkouts';
 import CustomDiets from '../screens/CustomDiets';
 import Types from '../screens/Types';
+import SearchDiet from '../screens/SearchDiet';
 
 const Stack = createStackNavigator();
 
@@ -98,6 +99,7 @@ return (
 	<Stack.Screen name="favorites" component={Favorites} options={{title: Strings.ST4}} />
 	<Stack.Screen name="customworkouts" component={CustomWorkouts} options={{title: Strings.ST50}} />
 	<Stack.Screen name="customdiets" component={CustomDiets} options={{title: Strings.ST51}} />
+	<Stack.Screen name="searchdiet" component={SearchDiet} options={{title: Strings.ST27}} />
 	</Stack.Navigator>
 	)
 }

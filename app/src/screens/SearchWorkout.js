@@ -4,7 +4,7 @@ import AppLoading from '../components/InnerLoading';
 import {searchWorkout} from "../config/DataApp";
 import { map, size } from "lodash";
 import Styles from '../config/Styles';
-import { List, Avatar, Text, Searchbar } from 'react-native-paper';
+import { List, Avatar, Text, Searchbar, IconButton } from 'react-native-paper';
 import LoadMoreButton from '../components/LoadMoreButton';
 import EmptyResults from '../components/EmptyResults';
 import Languages from '../languages';
@@ -90,14 +90,14 @@ export default function SearchWorkout(props) {
 
     <View>
 
-    <Searchbar
+    <View style={{flexDirection:'row', alignItems:'center'}}><Searchbar
     placeholder={Strings.ST54}
     autoCorrect={false}
     autoCapitalize='none'
     onIconPress={() => searchRequest()}
     onChangeText={(e) => setQuery(e)}
     style={Styles.SearchInput}
-    inputStyle={Styles.SearchInputStyle} />
+    inputStyle={Styles.SearchInputStyle} style={[Styles.SearchInput, {flex:1}]} /><IconButton icon="close" size={24} onPress={() => props.navigation.navigate('workouts')} /></View>
 
     <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
     

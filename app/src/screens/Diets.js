@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, ImageBackground, TouchableOpacity, FlatList, useWindowDimensions } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, ImageBackground, TouchableOpacity, FlatList, useWindowDimensions, Animated } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from '../config/Styles';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
 import { getLatestDiets } from "../config/DataApp";
 import AppLoading from '../components/InnerLoading';
-import { Text, Button } from 'react-native-paper';
+import { Text, Button, IconButton } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import LoadMoreButton from '../components/LoadMoreButton';
+import CollapsibleHeader from '../components/CollapsibleHeader';
 
 export default function Diets(props) {
 
@@ -18,6 +19,7 @@ export default function Diets(props) {
   const [items, setItems] = useState([]);
   const [showButton, setshowButton] = useState(true);
   const [loading, setLoading] = useState(false);
+  const scrollY = React.useRef(new Animated.Value(0)).current;
 
   const contextState = React.useContext(LanguageContext);
   const language = contextState.language;
@@ -101,7 +103,8 @@ export default function Diets(props) {
  return (
 
   <SafeAreaView style={{flex: 1}}>
-  <FlatList
+  <CollapsibleHeader title={Strings.ST27} navigation={props.navigation} scrollY={scrollY} showProfile={false} right={<IconButton icon="magnify" mode="contained" containerColor="#f0f0f0" size={24} style={{margin:0}} onPress={() => onChangeScreen('searchdiet')} />} />
+  <Animated.FlatList
   style={{width: '100%', height: Math.max(0, height - 56)}}
   data={items}
   renderItem={renderDiet}
@@ -110,7 +113,9 @@ export default function Diets(props) {
   showsVerticalScrollIndicator={false}
   scrollEnabled={true}
   nestedScrollEnabled={true}
-  contentContainerStyle={{padding: 10, paddingBottom: 32}}
+  contentContainerStyle={{padding: 10, paddingTop: 64, paddingBottom: 32}}
+  onScroll={Animated.event([{nativeEvent:{contentOffset:{y:scrollY}}}], {useNativeDriver:false})}
+  scrollEventThrottle={16}
   ListHeaderComponent={
     <View style={{marginBottom: 15, marginHorizontal: 5}}>
       <View style={{margin: 5}}>
