@@ -9,6 +9,7 @@ import { Text, Button, IconButton } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import LoadMoreButton from '../components/LoadMoreButton';
 import CollapsibleHeader from '../components/CollapsibleHeader';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Diets(props) {
 
@@ -20,6 +21,15 @@ export default function Diets(props) {
   const [showButton, setshowButton] = useState(true);
   const [loading, setLoading] = useState(false);
   const scrollY = React.useRef(new Animated.Value(0)).current;
+  const listRef = React.useRef(null);
+  useFocusEffect(React.useCallback(() => {
+    scrollY.setValue(0);
+    requestAnimationFrame(() => listRef.current?.scrollToOffset({offset: 0, animated: false}));
+  }, [scrollY]));
+
+  useEffect(() => {
+    props.navigation.setOptions({headerShown: false});
+  }, [props.navigation]);
 
   const contextState = React.useContext(LanguageContext);
   const language = contextState.language;
@@ -105,6 +115,7 @@ export default function Diets(props) {
   <SafeAreaView style={{flex: 1}}>
   <CollapsibleHeader title={Strings.ST27} navigation={props.navigation} scrollY={scrollY} showProfile={false} right={<IconButton icon="magnify" mode="contained" containerColor="#f0f0f0" size={24} style={{margin:0}} onPress={() => onChangeScreen('searchdiet')} />} />
   <Animated.FlatList
+  ref={listRef}
   style={{width: '100%', height: Math.max(0, height - 56)}}
   data={items}
   renderItem={renderDiet}
@@ -113,7 +124,7 @@ export default function Diets(props) {
   showsVerticalScrollIndicator={false}
   scrollEnabled={true}
   nestedScrollEnabled={true}
-  contentContainerStyle={{padding: 10, paddingTop: 64, paddingBottom: 32}}
+  contentContainerStyle={{paddingTop: 68, paddingBottom: 32}}
   onScroll={Animated.event([{nativeEvent:{contentOffset:{y:scrollY}}}], {useNativeDriver:false})}
   scrollEventThrottle={16}
   ListHeaderComponent={

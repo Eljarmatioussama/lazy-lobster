@@ -65,7 +65,7 @@ export default function StackNavigation(props){
 // ******************************** Buttons
 
 const buttonProfile = (screenNavigation) => (
-	<IconButton icon="account-circle-outline" iconColor={theme === "light" ? '#000' : '#fff'} size={25} style={{marginRight: 6, marginTop: 8, marginBottom: -8}} onPress={() => screenNavigation.navigate('profile')} />
+	<IconButton icon="account-circle-outline" iconColor={theme === "light" ? '#000' : '#fff'} size={20} style={{marginRight: 6, marginTop: 8, marginBottom: -8}} onPress={() => screenNavigation.navigate('profile')} />
 );
 
 return (

@@ -143,7 +143,7 @@ export default function Workouts(props) {
       keyExtractor={(item, index) => String(item.id ?? index)}
       ListHeaderComponent={renderHeader}
       ListFooterComponent={renderButton}
-      contentContainerStyle={{paddingTop: 64, paddingBottom: 32}}
+      contentContainerStyle={{paddingTop: 68, paddingBottom: 32}}
       scrollEnabled={true}
       nestedScrollEnabled={true}
       showsVerticalScrollIndicator={false}
