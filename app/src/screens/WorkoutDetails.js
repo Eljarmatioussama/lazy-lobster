@@ -80,11 +80,11 @@ export default function WorkoutDetails(props) {
 
     if (!isBookmark) {
         return (
-          <IconButton icon="heart-outline" mode="contained" containerColor="#f0f0f0" iconColor="#111" size={24} style={{marginRight: 8, marginVertical:0}} onPress={() => saveBookmark(item.id, item.title, item.image)}/>
+          <IconButton icon="heart-outline" mode="contained" containerColor={theme === 'dark' ? '#292929' : '#f0f0f0'} iconColor={theme === 'dark' ? '#fff' : '#111'} size={24} style={{marginRight: 8, marginVertical:0}} onPress={() => saveBookmark(item.id, item.title, item.image)}/>
           )
       }else{
         return (
-          <IconButton icon="heart" mode="contained" containerColor="#f0f0f0" iconColor="red" size={24} style={{marginRight: 8, marginVertical:0}} onPress={() => removeBookmark(item.id)}/>
+          <IconButton icon="heart" mode="contained" containerColor={theme === 'dark' ? '#292929' : '#f0f0f0'} iconColor="red" size={24} style={{marginRight: 8, marginVertical:0}} onPress={() => removeBookmark(item.id)}/>
           )
         }
       }
@@ -118,7 +118,7 @@ export default function WorkoutDetails(props) {
 
  return (
 
-  <><CollapsibleHeader title="" navigation={navigation} scrollY={scrollY} left={<IconButton icon="chevron-left" mode="contained" containerColor="#f0f0f0" size={24} style={{marginVertical:0}} onPress={() => navigation.goBack()} />} right={renderButtonFav()} /><Animated.ScrollView
+  <><CollapsibleHeader title="" navigation={navigation} scrollY={scrollY} left={<IconButton icon="chevron-left" mode="contained" containerColor={theme === 'dark' ? '#292929' : '#f0f0f0'} iconColor={theme === 'dark' ? '#fff' : '#111'} size={24} style={{marginVertical:0}} onPress={() => navigation.goBack()} />} right={renderButtonFav()} /><Animated.ScrollView
   style={{flex: 1}}
   contentContainerStyle={{paddingTop: 32, paddingBottom: 32}}
   showsHorizontalScrollIndicator={false}

@@ -10,12 +10,15 @@ import { LinearGradient } from 'expo-linear-gradient';
 import LevelRate from '../components/LevelRate';
 import LoadMoreButton from '../components/LoadMoreButton';
 import CollapsibleHeader from '../components/CollapsibleHeader';
+import usePreferences from '../hooks/usePreferences';
 
 export default function Workouts(props) {
 
   const { width, height } = useWindowDimensions();
-  const cardWidth = Math.max(0, width - 8);
-  const cardHeight = Math.max(180, cardWidth * 0.5);
+  const {theme} = usePreferences();
+  const dark = theme === 'dark';
+  const cardWidth = Math.max(0, width - 32);
+  const cardHeight = Math.max(180, cardWidth * 0.54);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [page, setPage] = useState(1);
@@ -83,8 +86,8 @@ export default function Workouts(props) {
 
   const renderWorkout = ({item}) => (
     <TouchableOpacity activeOpacity={0.9} onPress={() => onClickItem(item.id, item.title)}>
-      <ImageBackground source={{uri: item.image}} style={[Styles.card3_background, {width: cardWidth, height: cardHeight, padding: 15, marginBottom: 20}]} imageStyle={{borderRadius: 8}}>
-        <LinearGradient colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.7)']} style={[Styles.card3_gradient, {height: cardHeight, position: 'absolute', zIndex: 1}]}>
+      <ImageBackground source={{uri: item.image}} style={[Styles.card3_background, {width: cardWidth, height: cardHeight, marginBottom: 20}]} imageStyle={{borderRadius: 20}}>
+        <LinearGradient colors={['rgba(0,0,0,0.08)', 'rgba(0,0,0,0.78)']} style={[Styles.card3_gradient, {height: cardHeight, borderRadius: 20, position: 'absolute', zIndex: 1}]}>
           <View style={Styles.card3_viewicon}>
             {item.rate ? <LevelRate rate={item.rate}/> : null}
           </View>
@@ -136,7 +139,7 @@ export default function Workouts(props) {
  return (
 
   <SafeAreaView style={{flex: 1}}>
-    <CollapsibleHeader title={Strings.ST5} navigation={props.navigation} scrollY={scrollY} showProfile={false} right={<IconButton icon="magnify" mode="contained" containerColor="#f0f0f0" size={24} style={{margin:0}} onPress={() => onChangeScreen('searchworkout')} />} /><Animated.FlatList
+    <CollapsibleHeader title={Strings.ST5} navigation={props.navigation} scrollY={scrollY} showProfile={false} right={<IconButton icon="magnify" mode="contained" containerColor={dark ? '#292929' : '#f0f0f0'} iconColor={dark ? '#fff' : '#111'} size={24} style={{margin:0}} onPress={() => onChangeScreen('searchworkout')} />} /><Animated.FlatList
       style={{width: '100%', height: Math.max(0, height - 56)}}
       data={items}
       renderItem={renderWorkout}

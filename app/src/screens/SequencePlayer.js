@@ -6,6 +6,7 @@ import {getExerciseProgress, saveExerciseProgress} from '../config/DataApp';
 import {VideoView, useVideoPlayer} from 'expo-video';
 import ConfigApp from '../config/ConfigApp';
 import ColorsApp from '../config/ColorsApp';
+import usePreferences from '../hooks/usePreferences';
 
 const mediaUrl = (value) => {
   if (!value) return null;
@@ -18,6 +19,8 @@ const mediaUrl = (value) => {
 
 export default function SequencePlayer({route, navigation}) {
   const items = Array.isArray(route.params?.orderedItems) ? route.params.orderedItems : [];
+  const {theme} = usePreferences();
+  const dark = theme === 'dark';
   const [index, setIndex] = useState(0);
   const [showNextPrompt, setShowNextPrompt] = useState(false);
   const [savedProgress, setSavedProgress] = useState(0);
@@ -93,14 +96,14 @@ export default function SequencePlayer({route, navigation}) {
   if (!items.length) return <View style={styles.empty}><Text>No exercises found.</Text></View>;
 
   return (
-    <View style={styles.root}>
+    <View style={[styles.root, {backgroundColor: dark ? '#121212' : '#fff'}]}>
       <SafeAreaView style={styles.safe}>
         <View style={styles.top}>
-          <IconButton icon="close" iconColor="#111" onPress={() => navigation.goBack()} />
-          <Text style={styles.counter}>{index + 1} / {items.length}</Text>
+          <IconButton icon="close" iconColor={dark ? '#fff' : '#111'} onPress={() => navigation.goBack()} />
+          <Text style={[styles.counter, {color: dark ? '#fff' : '#111'}]}>{index + 1} / {items.length}</Text>
           <View style={{width: 48}} />
         </View>
-        <Text style={styles.title}>{item.title || 'Exercise'}</Text>
+        <Text style={[styles.title, {color: dark ? '#fff' : '#111'}]}>{item.title || 'Exercise'}</Text>
         <View style={styles.videoBox}>
           {videoUrl ? <VideoView player={player} style={styles.video} contentFit="contain" nativeControls fullscreenOptions={{enable: false}} />
             : item.image ? <Image source={{uri: mediaUrl(item.image)}} style={styles.video} resizeMode="cover" />
@@ -111,7 +114,7 @@ export default function SequencePlayer({route, navigation}) {
           </View>}
         </View>
         <View style={styles.controls}>
-          <Button mode="text" textColor="#fff" disabled={index === 0} onPress={previous}>Previous</Button>
+          <Button mode="text" textColor={dark ? '#fff' : '#111'} disabled={index === 0} onPress={previous}>Previous</Button>
           <Button mode="contained" buttonColor={ColorsApp.PRIMARY} onPress={next} disabled={index === items.length - 1}>
             {index === items.length - 1 ? 'Finished' : 'Next exercise'}
           </Button>

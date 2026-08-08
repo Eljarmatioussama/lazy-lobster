@@ -56,7 +56,7 @@ const buttonBack = (navigation) => {
 		if (navigation.canGoBack()) navigation.goBack();
 	};
 	return (
-		<IconButton icon={I18nManager.isRTL ? "chevron-right" : "chevron-left"} mode="contained" containerColor="#f0f0f0" size={24} style={{marginLeft:8, marginVertical:0}} onPress={goBack}/>
+		<IconButton icon={I18nManager.isRTL ? "chevron-right" : "chevron-left"} mode="contained" containerColor={theme === 'dark' ? '#292929' : '#f0f0f0'} iconColor={theme === 'dark' ? '#fff' : '#111'} size={24} style={{marginLeft:8, marginVertical:0}} onPress={goBack}/>
 		)
 };
 

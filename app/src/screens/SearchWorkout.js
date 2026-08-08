@@ -10,6 +10,7 @@ import EmptyResults from '../components/EmptyResults';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
 import TouchableScale from 'react-native-touchable-scale';
+import usePreferences from '../hooks/usePreferences';
 
 export default function SearchWorkout(props) {
 
@@ -18,6 +19,8 @@ export default function SearchWorkout(props) {
 	const Strings = Languages[language].texts;
 
 	const rightIcon = I18nManager.isRTL ? "chevron-left" : "chevron-right";
+	const {theme} = usePreferences();
+	const iconColor = theme === 'dark' ? '#fff' : '#111';
 
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -97,7 +100,7 @@ export default function SearchWorkout(props) {
     onIconPress={() => searchRequest()}
     onChangeText={(e) => setQuery(e)}
     style={Styles.SearchInput}
-    inputStyle={Styles.SearchInputStyle} style={[Styles.SearchInput, {flex:1}]} /><IconButton icon="close" size={24} onPress={() => props.navigation.navigate('workouts')} /></View>
+    inputStyle={Styles.SearchInputStyle} style={[Styles.SearchInput, {flex:1}]} /><IconButton icon="close" iconColor={iconColor} size={24} onPress={() => props.navigation.navigate('workouts')} /></View>
 
     <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
     

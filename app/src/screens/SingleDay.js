@@ -13,12 +13,15 @@ import ColorsApp from '../config/ColorsApp';
 import RestDay from '../components/RestDay';
 import CollapsibleHeader from '../components/CollapsibleHeader';
 import DraggableFlatList from 'react-native-draggable-flatlist';
+import usePreferences from '../hooks/usePreferences';
 
 export default function SingleDay(props) {
 
     const { route } = props;
     const { navigation } = props;
     const { id, day, title } = route.params;
+    const {theme} = usePreferences();
+    const dark = theme === 'dark';
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
@@ -70,7 +73,7 @@ if(size(items) >= 1){
     
       <View style={{flex: 1}}>
           <CollapsibleHeader title="" navigation={navigation} scrollY={scrollY}
-            left={<IconButton icon="chevron-left" mode="contained" containerColor="#f0f0f0" size={24} style={{marginVertical: 0}} onPress={() => navigation.goBack()} />} />
+            left={<IconButton icon="chevron-left" mode="contained" containerColor={dark ? '#292929' : '#f0f0f0'} iconColor={dark ? '#fff' : '#111'} size={24} style={{marginVertical: 0}} onPress={() => navigation.goBack()} />} />
       <SafeAreaView>
       
       
@@ -78,11 +81,11 @@ if(size(items) >= 1){
             const i = getIndex() || 0;
             return (
       
-          <TouchableScale style={{marginHorizontal:16, marginBottom:10, backgroundColor:'#fff', borderRadius:16, elevation:isActive ? 8 : 3, shadowColor:'#102a43', shadowOpacity:0.12, shadowRadius:8, shadowOffset:{width:0,height:3}}} activeOpacity={1} onLongPress={drag} onPress={() => onClickItem(item.id, item.title)} activeScale={0.98} tension={100} friction={10}>
+          <TouchableScale style={{marginHorizontal:16, marginBottom:10, backgroundColor:dark ? '#1e1e1e' : '#fff', borderRadius:16, elevation:isActive ? 8 : 3, shadowColor:'#102a43', shadowOpacity:0.12, shadowRadius:8, shadowOffset:{width:0,height:3}}} activeOpacity={1} onLongPress={drag} onPress={() => onClickItem(item.id, item.title)} activeScale={0.98} tension={100} friction={10}>
           <List.Item
           key={i}
           title={item.title}
-          titleStyle={{fontWeight: 'bold', fontSize:15, marginBottom: 3}}
+          titleStyle={{fontWeight: 'bold', fontSize:15, marginBottom: 3, color: dark ? '#fff' : '#111'}}
           activeOpacity={1}
           titleNumberOfLines={2}
           underlayColor="transparent"

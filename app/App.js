@@ -63,9 +63,12 @@ const App = () => {
   const [loaded, setLoaded] = useState(false);
   const [language, setLanguage] = useState(ConfigApp.DEFAULTLANG);
 
+  DefaultThemeNav.colors.background = theme === 'dark' ? '#121212' : '#fff';
+
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-    AsyncStorage.setItem('themeSetting', theme);
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    AsyncStorage.setItem('themeSetting', nextTheme);
   }
 
   const preference = useMemo(

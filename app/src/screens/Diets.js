@@ -10,10 +10,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 import LoadMoreButton from '../components/LoadMoreButton';
 import CollapsibleHeader from '../components/CollapsibleHeader';
 import { useFocusEffect } from '@react-navigation/native';
+import usePreferences from '../hooks/usePreferences';
 
 export default function Diets(props) {
 
   const { width, height } = useWindowDimensions();
+  const {theme} = usePreferences();
+  const dark = theme === 'dark';
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [page, setPage] = useState(1);
@@ -83,8 +86,8 @@ export default function Diets(props) {
 
   const renderDiet = ({item, index}) => (
     <TouchableOpacity key={item.id || index} activeOpacity={0.9} onPress={() => onClickItem(item.id, item.title)}>
-      <ImageBackground source={{uri: item.image}} style={[Styles.card3_background, {width: '100%', height: Math.max(180, width * 0.5), marginLeft: 0}]} imageStyle={{borderRadius: 8}}>
-        <LinearGradient colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.7)']} style={[Styles.card3_gradient, {height: '100%'}]}>
+      <ImageBackground source={{uri: item.image}} style={[Styles.card3_background, {width: Math.max(0, width - 32), height: Math.max(180, (width - 32) * 0.54), marginBottom: 20}]} imageStyle={{borderRadius: 20}}>
+        <LinearGradient colors={['rgba(0,0,0,0.08)', 'rgba(0,0,0,0.78)']} style={[Styles.card3_gradient, {height: '100%', borderRadius: 20}]}>
           <Text numberOfLines={1} style={Styles.card3_category}>{item.category}</Text>
           <Text numberOfLines={2} style={Styles.card3_title}>{item.title}</Text>
           <Text numberOfLines={1} style={[Styles.card3_subtitle, {opacity:0.6}]}>{item.calories} {Strings.ST46} | {Strings.ST62} {item.servings}</Text>
@@ -113,7 +116,7 @@ export default function Diets(props) {
  return (
 
   <SafeAreaView style={{flex: 1}}>
-  <CollapsibleHeader title={Strings.ST27} navigation={props.navigation} scrollY={scrollY} showProfile={false} right={<IconButton icon="magnify" mode="contained" containerColor="#f0f0f0" size={24} style={{margin:0}} onPress={() => onChangeScreen('searchdiet')} />} />
+  <CollapsibleHeader title={Strings.ST27} navigation={props.navigation} scrollY={scrollY} showProfile={false} right={<IconButton icon="magnify" mode="contained" containerColor={dark ? '#292929' : '#f0f0f0'} iconColor={dark ? '#fff' : '#111'} size={24} style={{margin:0}} onPress={() => onChangeScreen('searchdiet')} />} />
   <Animated.FlatList
   ref={listRef}
   style={{width: '100%', height: Math.max(0, height - 56)}}

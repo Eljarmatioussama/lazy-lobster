@@ -20,14 +20,15 @@ const items = [
 function BottomBar({ navigation }) {
   const { theme } = usePreferences();
   const insets = useSafeAreaInsets();
-  const foreground = theme === "dark" ? "#fff" : "#222";
-  const background = theme === "dark" ? "#111" : "#fff";
+  const isDark = theme === "dark";
+  const foreground = isDark ? "#fff" : "#222";
+  const background = isDark ? "#111" : "#fff";
 
   return (
     <View style={{ flexDirection: "row", backgroundColor: background, borderTopWidth: 1, borderTopColor: theme === "dark" ? "#292929" : "#e8e8e8", paddingBottom: Math.max(insets.bottom, 6), paddingTop: 6 }}>
       {items.map((item) => (
         <Pressable key={item.screen} accessibilityRole="button" accessibilityLabel={item.label} onPress={() => navigation.navigate("App", { screen: "Main", params: { screen: item.screen } })} style={{ flex: 1, alignItems: "center", justifyContent: "center", minHeight: 48 }}>
-          <Icon name={item.icon} size={23} color={foreground} />
+          <Icon name={item.icon} size={23} color={isDark ? '#fff' : '#222'} />
           <Text style={{ color: foreground, fontSize: 11, marginTop: 2 }}>{item.label}</Text>
         </Pressable>
       ))}
