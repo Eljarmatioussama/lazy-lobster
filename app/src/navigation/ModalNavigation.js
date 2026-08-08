@@ -89,7 +89,7 @@ return (
       <RootStack.Screen name="productdetails" component={ProductDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="postdetails" component={PostDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="player" component={Player} options={{headerTransparent: true, title: null}} />
-      <RootStack.Screen name="timer" component={Timer} options={{headerTransparent: true, title: null, headerLeft: null}} />
+      <RootStack.Screen name="timer" component={Timer} options={{presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: null}} />
       <RootStack.Screen name="singleday" component={SingleDay} options={({navigation}) => ({presentation: 'card', headerShown: true, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="completed" component={Completed} options={{headerTransparent: true, title: null, headerLeft: null}} />
     </RootStack.Navigator>

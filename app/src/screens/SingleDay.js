@@ -33,7 +33,9 @@ export default function SingleDay(props) {
     };
 
     const onClickStart = (id, day) => {
-      navigation.navigate('timer', {id, day});
+      // Keep the order created by the user in the draggable list. The timer
+      // uses this snapshot instead of fetching the original server order.
+      navigation.navigate('timer', {id, day, orderedItems: items});
     };
 
     useEffect(() => {

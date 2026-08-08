@@ -16,12 +16,12 @@ export default function Timer(props) {
     useKeepAwake();
 
     const { route } = props;
-    const { id, day } = route.params;
+    const { id, day, orderedItems } = route.params;
 
     const [sliderState, setSliderState] = React.useState({ currentPage: 0 });
     const [isLoaded, setIsLoaded] = React.useState(false);
     const [isPlaying, setIsPlaying] = React.useState(false);
-    const [items, setItems] = React.useState([]);
+    const [items, setItems] = React.useState(Array.isArray(orderedItems) ? orderedItems : []);
     const { width } = Dimensions.get("window");
 
     const contextState = React.useContext(LanguageContext);
@@ -133,11 +133,14 @@ export default function Timer(props) {
 
 
       React.useEffect(() => {
+        if (Array.isArray(orderedItems) && orderedItems.length) {
+          setIsLoaded(true);
+          return;
+        }
         getWorkoutByDay(id, day).then((response) => {
-            setItems(response);
+            setItems(response || []);
             setIsLoaded(true);
         });
-
       }, []);
 
       if (!isLoaded) {
