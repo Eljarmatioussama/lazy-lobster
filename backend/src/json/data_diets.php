@@ -98,6 +98,9 @@ require './app_core.php';
 			'servings'=> html_entity_decode($servings),
 			'price'=> $price
 		);
+		$attributeStatement = $connect->prepare('SELECT attribute_label AS label, attribute_value AS value, attribute_color AS color FROM diet_attributes WHERE diet_id = ? ORDER BY attribute_order, attribute_id');
+		$attributeStatement->execute([$id]);
+		$data[count($data)-1]['attributes'] = $attributeStatement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	print json_encode($data, JSON_NUMERIC_CHECK);

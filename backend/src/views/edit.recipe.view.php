@@ -83,6 +83,36 @@
    <label class="control-label">Fat</label>
    <input type="text" value="<?php echo $diet['diet_fat']; ?>" placeholder="Fat (Grams)" name="diet_fat" class="form-control" required="">
 
+   <label class="control-label">Additional chart attributes</label>
+   <div id="diet-attributes">
+   <?php foreach (($diet_attributes ?? []) as $attribute) { ?>
+     <div class="row diet-attribute" style="margin-bottom:8px">
+       <div class="col-sm-4"><input type="text" name="attribute_label[]" value="<?php echo htmlspecialchars($attribute['label'], ENT_QUOTES, 'UTF-8'); ?>" placeholder="Name (e.g. Fiber)" class="form-control"></div>
+       <div class="col-sm-3"><input type="text" name="attribute_value[]" value="<?php echo htmlspecialchars($attribute['value'], ENT_QUOTES, 'UTF-8'); ?>" placeholder="Value (e.g. 8g)" class="form-control"></div>
+       <div class="col-sm-3"><input type="color" name="attribute_color[]" value="<?php echo htmlspecialchars($attribute['color'], ENT_QUOTES, 'UTF-8'); ?>" class="form-control" style="height:34px"></div>
+       <div class="col-sm-2"><button type="button" class="btn btn-danger remove-attribute">Remove</button></div>
+     </div>
+   <?php } ?>
+   </div>
+   <button type="button" class="btn btn-default" id="add-attribute">Add attribute</button>
+   <small class="help-block">Add a name, value, and color for each extra item shown in the app chart.</small>
+   <script>
+   document.getElementById('add-attribute').addEventListener('click', function () {
+     var row = document.createElement('div');
+     row.className = 'row diet-attribute'; row.style.marginBottom = '8px';
+     row.innerHTML = '<div class="col-sm-4"><input type="text" name="attribute_label[]" placeholder="Name (e.g. Fiber)" class="form-control"></div>' +
+       '<div class="col-sm-3"><input type="text" name="attribute_value[]" placeholder="Value (e.g. 8g)" class="form-control"></div>' +
+       '<div class="col-sm-3"><input type="color" name="attribute_color[]" value="#9b59b6" class="form-control" style="height:34px"></div>' +
+       '<div class="col-sm-2"><button type="button" class="btn btn-danger remove-attribute">Remove</button></div>';
+     document.getElementById('diet-attributes').appendChild(row);
+   });
+   document.getElementById('diet-attributes').addEventListener('click', function (event) {
+     if (event.target.classList.contains('remove-attribute')) event.target.closest('.diet-attribute').remove();
+   });
+   </script>
+
+      <div class="clearfix"></div>
+      <hr>
       <label class="control-label">Servings</label>
    <input type="text" value="<?php echo $diet['diet_servings']; ?>" placeholder="Servings" name="diet_servings" class="form-control" required="">
 

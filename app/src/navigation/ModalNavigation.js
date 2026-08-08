@@ -86,7 +86,7 @@ return (
       <RootStack.Screen name="Main" component={StackNavigation} options={{ headerShown: false }}/>
       <RootStack.Screen name="exercisedetails" component={ExerciseDetails} options={({navigation}) => ({presentation: 'fullScreenModal', title: Strings.ST80, headerLeft: () => buttonClose(navigation)})} />
       <RootStack.Screen name="workoutdetails" component={WorkoutDetails} options={{presentation: 'fullScreenModal', headerShown: false, header: () => null}} />
-      <RootStack.Screen name="dietdetails" component={DietDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
+      <RootStack.Screen name="dietdetails" component={DietDetails} options={{presentation: 'fullScreenModal', headerShown: false, header: () => null}} />
       <RootStack.Screen name="productdetails" component={ProductDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="postdetails" component={PostDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="player" component={Player} options={{headerTransparent: true, title: null}} />
