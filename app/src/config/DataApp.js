@@ -1,5 +1,21 @@
 import ConfigApp from "./ConfigApp";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { auth } from './ConfigFirebase';
+
+export async function getExerciseProgress(exerciseId) {
+  const uid = auth.currentUser?.uid;
+  if (!uid) return 0;
+  try {
+    const response = await fetch(`${ConfigApp.URL}json/exercise_progress.php?uid=${encodeURIComponent(uid)}&exercise_id=${exerciseId}`);
+    return Number((await response.json()).progress || 0);
+  } catch (_) { return 0; }
+}
+
+export async function saveExerciseProgress(exerciseId, progress) {
+  const uid = auth.currentUser?.uid;
+  if (!uid) return;
+  try { await fetch(`${ConfigApp.URL}json/exercise_progress.php`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({uid, exercise_id:exerciseId, progress})}); } catch (_) {}
+}
 
 const normalizeMediaUrls = (value) => {
   if (typeof value === 'string') return value.replace(/https?:\/\/localhost:8080/g, ConfigApp.URL.replace(/\/$/, ''));

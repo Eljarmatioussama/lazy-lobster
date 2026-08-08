@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {VideoView, useVideoPlayer} from 'expo-video';
+import {useIsFocused} from '@react-navigation/native';
 
 export type VideoPlayerProps = {
   videoUrl: string;
@@ -12,10 +13,22 @@ export type VideoPlayerProps = {
 /** Shared native Expo video player. Uses Expo's built-in controls, looping and fullscreen. */
 export default function VideoPlayer({videoUrl, onVideoCompleted}: VideoPlayerProps) {
   const viewRef = useRef<any>(null);
+  const isFocused = useIsFocused();
   const player = useVideoPlayer(videoUrl, instance => {
-    instance.loop = true;
-    instance.play();
+    instance.loop = false;
   });
+
+  useEffect(() => {
+    try {
+      if (isFocused) player.play();
+      else player.pause();
+    } catch (_) {
+      // The native player may already be disposed during navigation.
+    }
+    return () => {
+      try { player.pause(); } catch (_) {}
+    };
+  }, [isFocused, player]);
 
   useEffect(() => {
     const completion = player.addListener('playToEnd', () => onVideoCompleted?.());
@@ -37,6 +50,6 @@ export default function VideoPlayer({videoUrl, onVideoCompleted}: VideoPlayerPro
 }
 
 const styles = StyleSheet.create({
-  card: {width: '92%', alignSelf:'center', aspectRatio: 16 / 9, marginTop: 24, backgroundColor: '#000', overflow: 'hidden', borderRadius: 16},
-  video: {width: '100%', height: '100%', borderRadius: 16},
+  card: {width: '100%', alignSelf:'stretch', aspectRatio: 16 / 9, marginTop: 24, backgroundColor: '#000', overflow: 'hidden', borderRadius: 0},
+  video: {width: '100%', height: '100%', borderRadius: 0},
 });

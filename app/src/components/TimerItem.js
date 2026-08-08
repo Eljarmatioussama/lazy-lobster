@@ -179,11 +179,10 @@ React.useEffect(() => {
 }, [stop]);
 
 React.useEffect(() => {
-  if (isPlaying && !stop) {
-    player.play();
-  } else {
-    player.pause();
-  }
+  try {
+    if (isPlaying && !stop) player.play();
+    else player.pause();
+  } catch (_) {}
 }, [isPlaying, stop, player]);
 
 const renderButton = () => {
