@@ -8,6 +8,7 @@ import usePreferences from '../hooks/usePreferences';
 import ExerciseDetails from '../screens/ExerciseDetails';
 import StackNavigation from './StackNavigation';
 import Player from '../screens/Player';
+import SequencePlayer from '../screens/SequencePlayer';
 import WorkoutDetails from '../screens/WorkoutDetails';
 import SingleDay from '../screens/SingleDay';
 import DietDetails from '../screens/DietDetails';
@@ -89,7 +90,7 @@ return (
       <RootStack.Screen name="productdetails" component={ProductDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="postdetails" component={PostDetails} options={({navigation}) => ({presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="player" component={Player} options={{headerTransparent: true, title: null}} />
-      <RootStack.Screen name="timer" component={Timer} options={{presentation: 'fullScreenModal', headerTransparent: true, title: null, headerLeft: null}} />
+      <RootStack.Screen name="timer" component={SequencePlayer} options={{presentation: 'fullScreenModal', headerShown: false}} />
       <RootStack.Screen name="singleday" component={SingleDay} options={({navigation}) => ({presentation: 'card', headerShown: true, headerLeft: () => buttonBack(navigation)})} />
       <RootStack.Screen name="completed" component={Completed} options={{headerTransparent: true, title: null, headerLeft: null}} />
     </RootStack.Navigator>
