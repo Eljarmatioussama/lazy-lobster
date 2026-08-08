@@ -14,6 +14,7 @@ import { HTMLStyles } from '../config/HTMLStyles';
 import { HTMLStylesDark } from '../config/HTMLStylesDark';
 import HTMLView from 'react-native-render-html';
 import VideoPlayer from '../components/VideoPlayer';
+import ConfigApp from '../config/ConfigApp';
 
 export default function SingleExercise(props) {
 
@@ -39,10 +40,7 @@ export default function SingleExercise(props) {
   const mediaUrl = (url) => {
     if (!url) return url;
     const value = String(url).trim();
-    if (Platform.OS === 'android') {
-      return value.replace('http://localhost:8080', 'http://10.0.2.2:8080');
-    }
-    return value;
+    return value.replace('http://localhost:8080', ConfigApp.URL.replace(/\/$/, ''));
   };
 
   const videoUrl = mediaUrl(item?.video);

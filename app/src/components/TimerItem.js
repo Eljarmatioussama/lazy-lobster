@@ -31,11 +31,9 @@ const videoUrl = data?.video && /^https?:\/\//i.test(String(data.video)) && !/yo
   ? String(data.video)
   : null;
 const imageUrl = data?.image
-  ? (Platform.OS === 'android'
-      ? String(data.image).replace('http://localhost:8080', 'http://10.0.2.2:8080')
-      : /^https?:\/\//i.test(String(data.image))
-        ? String(data.image)
-        : `${ConfigApp.URL}${String(data.image).replace(/^\/+/, '')}`)
+  ? (/^https?:\/\//i.test(String(data.image))
+      ? String(data.image).replace('http://localhost:8080', ConfigApp.URL.replace(/\/$/, ''))
+      : `${ConfigApp.URL}${String(data.image).replace(/^\/+/, '')}`)
   : null;
 const player = useVideoPlayer(videoUrl, (videoPlayer) => {
   videoPlayer.loop = true;
