@@ -74,14 +74,14 @@ if(size(items) >= 1){
       <View style={{flex: 1}}>
           <CollapsibleHeader title="" navigation={navigation} scrollY={scrollY}
             left={<IconButton icon="chevron-left" mode="contained" containerColor={dark ? '#292929' : '#f0f0f0'} iconColor={dark ? '#fff' : '#111'} size={24} style={{marginVertical: 0}} onPress={() => navigation.goBack()} />} />
-      <SafeAreaView>
+      <SafeAreaView style={{flex:1}}>
+      <Text style={{marginTop:68, marginHorizontal:20, marginBottom:4, textAlign:'center', color:dark ? '#bbb' : '#666', fontSize:14}}>Drag to order your classes</Text>
       
-      
-          <DraggableFlatList data={items} keyExtractor={(item, index) => String(item.id || index)} contentContainerStyle={{paddingTop: 84, paddingBottom: 100}} onScrollOffsetChange={(offset) => scrollY.setValue(offset)} onDragEnd={({data}) => setItems(data)} renderItem={({item, getIndex, drag, isActive}) => {
+          <DraggableFlatList data={items} keyExtractor={(item, index) => String(item.id || index)} activationDistance={3} style={{flex:1}} contentContainerStyle={{paddingTop: 8, paddingBottom: 100}} onScrollOffsetChange={(offset) => scrollY.setValue(offset)} onDragEnd={({data}) => setItems(data)} renderItem={({item, getIndex, drag, isActive}) => {
             const i = getIndex() || 0;
             return (
       
-          <TouchableScale style={{marginHorizontal:16, marginBottom:10, backgroundColor:dark ? '#1e1e1e' : '#fff', borderRadius:16, elevation:isActive ? 8 : 3, shadowColor:'#102a43', shadowOpacity:0.12, shadowRadius:8, shadowOffset:{width:0,height:3}}} activeOpacity={1} onLongPress={drag} onPress={() => onClickItem(item.id, item.title)} activeScale={0.98} tension={100} friction={10}>
+          <TouchableScale style={{marginHorizontal:16, marginBottom:10, backgroundColor:dark ? '#1e1e1e' : '#fff', borderRadius:16, elevation:isActive ? 8 : 3, shadowColor:'#102a43', shadowOpacity:0.12, shadowRadius:8, shadowOffset:{width:0,height:3}}} activeOpacity={1} delayLongPress={180} onLongPress={drag} onPress={() => onClickItem(item.id, item.title)} activeScale={0.98} tension={100} friction={10}>
           <List.Item
           key={i}
           title={item.title}
@@ -105,10 +105,10 @@ if(size(items) >= 1){
 
           </SafeAreaView>
 
-          <View>
+          <View style={{position:'absolute', left:0, right:0, bottom:16, alignItems:'center'}}>
             <FAB
-          style={{marginHorizontal: 50, marginBottom:20, elevation: 0}}
-          label={Strings.ST122}
+          style={{elevation: 6}}
+          label="Start classes"
           icon="play"
           onPress={() => onClickStart(id, day)}
           />
