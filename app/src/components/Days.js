@@ -77,6 +77,7 @@ export default function Days(props) {
         <Text style={[Styles.DayCardLabel, {textAlign:'left', marginBottom:2}]}>{weekdays[i]}</Text>
         <Text style={[Styles.DayCardDuration, {textAlign:'left', marginBottom:0}]}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : 'Calculating…'}</Text>
       </View>
+      <Icon name="play-circle-outline" size={28} color={Styles.DayCardIcon.color} style={{alignSelf:'center'}} />
     </TouchableOpacity>
 
     ))}
