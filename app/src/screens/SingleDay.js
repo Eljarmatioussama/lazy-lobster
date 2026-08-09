@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Image, I18nManager, Animated } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View, Image, I18nManager, Animated, Pressable } from 'react-native'; import { SafeAreaView } from 'react-native-safe-area-context';
 import Styles from '../config/Styles';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
@@ -77,11 +77,11 @@ if(size(items) >= 1){
       <SafeAreaView>
       
       
-          <DraggableFlatList data={items} keyExtractor={(item, index) => String(item.id || index)} contentContainerStyle={{paddingTop: 84, paddingBottom: 100}} onScrollOffsetChange={(offset) => scrollY.setValue(offset)} onDragEnd={({data}) => setItems(data)} renderItem={({item, getIndex, drag, isActive}) => {
+          <DraggableFlatList data={items} activationDistance={1} keyExtractor={(item, index) => String(item.id || index)} contentContainerStyle={{paddingTop: 84, paddingBottom: 100}} onScrollOffsetChange={(offset) => scrollY.setValue(offset)} onDragEnd={({data}) => setItems(data)} renderItem={({item, getIndex, drag, isActive}) => {
             const i = getIndex() || 0;
             return (
       
-          <TouchableScale style={{marginHorizontal:16, marginBottom:10, backgroundColor:dark ? '#1e1e1e' : '#fff', borderRadius:16, elevation:isActive ? 8 : 3, shadowColor:'#102a43', shadowOpacity:0.12, shadowRadius:8, shadowOffset:{width:0,height:3}}} activeOpacity={1} onLongPress={drag} onPress={() => onClickItem(item.id, item.title)} activeScale={0.98} tension={100} friction={10}>
+          <TouchableScale style={{marginHorizontal:16, marginBottom:10, backgroundColor:dark ? '#1e1e1e' : '#fff', borderRadius:16, elevation:isActive ? 8 : 3, shadowColor:'#102a43', shadowOpacity:0.12, shadowRadius:8, shadowOffset:{width:0,height:3}}} activeOpacity={1} delayLongPress={180} onLongPress={drag} onPress={() => onClickItem(item.id, item.title)} activeScale={0.98} tension={100} friction={10}>
           <List.Item
           key={i}
           title={item.title}
@@ -97,7 +97,7 @@ if(size(items) >= 1){
             <Image source={{uri: item.image}} style={Styles.itemListImage2} resizeMode={"center"} />
             </View>
             </View>}
-          right={props => <List.Icon {...props} icon="drag-vertical" color="#8fa3ad" style={{opacity:0.7, alignSelf:'center'}} />}
+          right={props => <Pressable onLongPress={drag} delayLongPress={120} hitSlop={12} style={{alignSelf:'center', padding:10, borderRadius:24}}><List.Icon {...props} icon="drag-vertical" color="#8fa3ad" style={{opacity:0.7, alignSelf:'center', margin:0}} /></Pressable>}
           />
           </TouchableScale>
             );
