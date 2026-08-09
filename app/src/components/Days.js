@@ -11,16 +11,12 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { auth } from '../config/ConfigFirebase';
 import { getWorkoutByDay } from '../config/DataApp';
-import usePreferences from '../hooks/usePreferences';
-import ColorsApp from '../config/ColorsApp';
 
 export default function Days(props) {
 
     const contextState = React.useContext(LanguageContext);
     const language = contextState.language;
     const Strings = Languages[language].texts;
-    const {theme} = usePreferences();
-    const dark = theme === 'dark';
 
     const {Number: daysCount, WorkoutId} = props;
 
@@ -76,12 +72,23 @@ export default function Days(props) {
 
     {map(totalDays, (i) => (
 
-    <TouchableOpacity key={i} style={[Styles.DayCard, {minHeight:78, paddingVertical:9, backgroundColor:dark ? '#1e1e1e' : '#fff', borderColor:dark ? '#3a3a3a' : '#e7ecef'}]} activeOpacity={0.85} onPress={() => onChangeScreen(WorkoutId, i + 1, weekdays[i])}>
-      <View style={[Styles.DayCardContent, {alignItems:'flex-start', justifyContent:'center'}]}>
-        <Text style={[Styles.DayCardLabel, {color:dark ? '#fff' : '#111', textAlign:'left', marginBottom:2}]}>{weekdays[i]}</Text>
-        <Text style={[Styles.DayCardDuration, {color:dark ? '#bbb' : '#111', textAlign:'left', marginBottom:0}]}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : 'Calculating…'}</Text>
+    <TouchableOpacity key={i} style={Styles.DayCard} activeOpacity={0.85} onPress={() => onChangeScreen(WorkoutId, i + 1, weekdays[i])}>
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          left: 0,
+          width: completedDays.includes(i + 1) ? '100%' : 0,
+          top: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(35, 145, 220, 0.18)',
+          borderRadius: 14,
+        }}
+      />
+      <View style={Styles.DayCardContent}>
+        <Text style={Styles.DayCardLabel}>{weekdays[i]}</Text>
+        <Text style={Styles.DayCardDuration}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : 'Calculating…'}</Text>
       </View>
-      <Icon name="play-circle-outline" size={30} color={ColorsApp.PRIMARY} style={{alignSelf:'center'}} />
     </TouchableOpacity>
 
     ))}
