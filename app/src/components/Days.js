@@ -72,10 +72,10 @@ export default function Days(props) {
 
     {map(totalDays, (i) => (
 
-    <TouchableOpacity key={i} style={Styles.DayCard} activeOpacity={0.85} onPress={() => onChangeScreen(WorkoutId, i + 1, weekdays[i])}>
-      <View style={Styles.DayCardContent}>
-        <Text style={Styles.DayCardLabel}>{weekdays[i]}</Text>
-        <Text style={Styles.DayCardDuration}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : 'Calculating…'}</Text>
+    <TouchableOpacity key={i} style={[Styles.DayCard, {minHeight:78, paddingVertical:9}]} activeOpacity={0.85} onPress={() => onChangeScreen(WorkoutId, i + 1, weekdays[i])}>
+      <View style={[Styles.DayCardContent, {alignItems:'flex-start', justifyContent:'center'}]}>
+        <Text style={[Styles.DayCardLabel, {textAlign:'left', marginBottom:2}]}>{weekdays[i]}</Text>
+        <Text style={[Styles.DayCardDuration, {textAlign:'left', marginBottom:0}]}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : 'Calculating…'}</Text>
       </View>
     </TouchableOpacity>
 
