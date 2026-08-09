@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Pressable} from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {map} from 'lodash';
@@ -77,7 +77,18 @@ export default function Days(props) {
         <Text style={[Styles.DayCardLabel, {textAlign:'left', marginBottom:2}]}>{weekdays[i]}</Text>
         <Text style={[Styles.DayCardDuration, {textAlign:'left', marginBottom:0}]}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : 'Calculating…'}</Text>
       </View>
-      <Icon name="play-circle-outline" size={28} color={Styles.DayCardIcon.color} style={{alignSelf:'center'}} />
+      <Pressable
+        onPress={() => onChangeScreen(WorkoutId, i + 1, weekdays[i])}
+        android_ripple={{color: 'rgba(35, 145, 220, 0.18)', borderless: true}}
+        style={({pressed}) => ({
+          alignSelf: 'center',
+          borderRadius: 20,
+          opacity: pressed ? 0.65 : 1,
+          transform: [{scale: pressed ? 0.9 : 1}],
+        })}
+      >
+        <Icon name="play-circle-outline" size={28} color={Styles.DayCardIcon.color} />
+      </Pressable>
     </TouchableOpacity>
 
     ))}
