@@ -133,7 +133,7 @@ export default function WorkoutDetails(props) {
 
     {introVideo ? <View>
       <View style={{marginHorizontal:20, marginTop:16, paddingTop:4, paddingBottom:2}}>
-        <Text style={{color:ColorsApp.PRIMARY, fontSize:10, fontWeight:'800', letterSpacing:1.1, marginBottom:3}}>INTRODUCTION</Text>
+        <Text style={{color:ColorsApp.PRIMARY, fontSize:10, fontWeight:'800', letterSpacing:1.1, marginBottom:3}}>{Strings.ST155}</Text>
         <Text style={{color:theme === 'dark' ? '#fff' : '#18232b', fontSize:16, fontWeight:'800'}} numberOfLines={1}>{item.title}</Text>
       </View>
       <VideoPlayer videoUrl={introVideo} thumbnail={item.image} title={item.title} onVideoCompleted={() => {}} />
@@ -151,7 +151,7 @@ export default function WorkoutDetails(props) {
     </ImageBackground>}
 
     <View style={{marginTop:20, marginHorizontal:20}}>
-      <Text style={{color:theme === 'dark' ? '#aaa' : '#71808a', fontSize:11, letterSpacing:1.2, fontWeight:'800'}}>YOUR PLAN</Text>
+      <Text style={{color:theme === 'dark' ? '#aaa' : '#71808a', fontSize:11, letterSpacing:1.2, fontWeight:'800'}}>{Strings.ST152}</Text>
       <View style={{flexDirection:'row', gap:10, marginTop:10}}>
         <View style={{flex:1, minHeight:72, padding:11, borderRadius:14, borderLeftWidth:4, borderLeftColor:ColorsApp.PRIMARY, backgroundColor:theme === 'dark' ? '#1e1e1e' : '#f4f7f8'}}>
           <Text style={{color:theme === 'dark' ? '#aaa' : '#71808a', fontSize:10, letterSpacing:1, fontWeight:'800'}}>{Strings.ST87}</Text>
@@ -165,8 +165,8 @@ export default function WorkoutDetails(props) {
     </View>
 
     <View style={{marginTop:28, marginHorizontal:20}}>
-      <Text style={{color:theme === 'dark' ? '#aaa' : '#71808a', fontSize:11, letterSpacing:1.2, fontWeight:'800'}}>WEEKLY CLASSES</Text>
-      <Text style={{color:theme === 'dark' ? '#ddd' : '#4b5b66', fontSize:14, marginTop:4}}>Choose a day to start your next class</Text>
+      <Text style={{color:theme === 'dark' ? '#aaa' : '#71808a', fontSize:11, letterSpacing:1.2, fontWeight:'800'}}>{Strings.ST153}</Text>
+      <Text style={{color:theme === 'dark' ? '#ddd' : '#4b5b66', fontSize:14, marginTop:4}}>{Strings.ST154}</Text>
     </View>
     <Days Number={7} WorkoutId={item.id}></Days>
 

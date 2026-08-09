@@ -7,6 +7,8 @@ import {VideoView, useVideoPlayer} from 'expo-video';
 import ConfigApp from '../config/ConfigApp';
 import ColorsApp from '../config/ColorsApp';
 import usePreferences from '../hooks/usePreferences';
+import Languages from '../languages';
+import LanguageContext from '../languages/LanguageContext';
 
 const mediaUrl = (value) => {
   if (!value) return null;
@@ -21,6 +23,8 @@ export default function SequencePlayer({route, navigation}) {
   const items = Array.isArray(route.params?.orderedItems) ? route.params.orderedItems : [];
   const {theme} = usePreferences();
   const dark = theme === 'dark';
+  const {language} = React.useContext(LanguageContext);
+  const Strings = Languages[language].texts;
   const [index, setIndex] = useState(0);
   const [showNextPrompt, setShowNextPrompt] = useState(false);
   const [savedProgress, setSavedProgress] = useState(0);
@@ -95,7 +99,7 @@ export default function SequencePlayer({route, navigation}) {
     };
   }, [player, index, items.length, item.id]);
 
-  if (!items.length) return <View style={styles.empty}><Text>No exercises found.</Text></View>;
+  if (!items.length) return <View style={styles.empty}><Text>{Strings.ST165}</Text></View>;
 
   return (
     <View style={[styles.root, {backgroundColor: dark ? '#121212' : '#fff'}]}>
@@ -103,13 +107,13 @@ export default function SequencePlayer({route, navigation}) {
         <View style={styles.top}>
           <IconButton icon="close" mode="contained" containerColor={dark ? '#292929' : '#eef2f5'} iconColor={dark ? '#fff' : '#111'} onPress={() => navigation.goBack()} />
           <View style={[styles.counterPill, {backgroundColor: dark ? '#292929' : '#eef2f5'}]}>
-            <Text style={[styles.counter, {color: dark ? '#fff' : '#111'}]}>CLASS {index + 1} OF {items.length}</Text>
+            <Text style={[styles.counter, {color: dark ? '#fff' : '#111'}]}>{Strings.ST148} {index + 1} {Strings.ST149} {items.length}</Text>
           </View>
           <View style={{width: 48}} />
         </View>
         <View style={styles.heading}>
-          <Text style={styles.eyebrow}>NOW PLAYING</Text>
-          <Text style={[styles.title, {color: dark ? '#fff' : '#111'}]}>{item.title || 'Exercise'}</Text>
+          <Text style={styles.eyebrow}>{Strings.ST147}</Text>
+          <Text style={[styles.title, {color: dark ? '#fff' : '#111'}]}>{item.title || Strings.ST166}</Text>
           {(level || goal) && <View style={styles.metaRow}>
             {level && <View style={[styles.metaPill, {backgroundColor: dark ? '#292929' : '#eef2f5'}]}><Text style={[styles.metaText, {color: dark ? '#ddd' : '#4b5b66'}]}>{level}</Text></View>}
             {goal && <View style={[styles.metaPill, {backgroundColor: dark ? '#292929' : '#eef2f5'}]}><Text style={[styles.metaText, {color: dark ? '#ddd' : '#4b5b66'}]}>{goal}</Text></View>}
@@ -118,10 +122,10 @@ export default function SequencePlayer({route, navigation}) {
         <View style={styles.videoBox}>
           {videoUrl ? <VideoView player={player} style={styles.video} contentFit="contain" nativeControls fullscreenOptions={{enable: false}} />
             : item.image ? <Image source={{uri: mediaUrl(item.image)}} style={styles.video} resizeMode="cover" />
-            : <Text style={[styles.noVideo, {color: dark ? '#fff' : '#111'}]}>No video available</Text>}
+            : <Text style={[styles.noVideo, {color: dark ? '#fff' : '#111'}]}>{Strings.ST151}</Text>}
           {showNextPrompt && <View style={styles.nextPrompt}>
-            <Text style={styles.nextLabel}>Up next: {items[index + 1]?.title || 'Next exercise'}</Text>
-            <Button mode="contained" buttonColor={ColorsApp.PRIMARY} onPress={next}>Next exercise</Button>
+            <Text style={styles.nextLabel}>{Strings.ST150}: {items[index + 1]?.title || Strings.ST128}</Text>
+            <Button mode="contained" buttonColor={ColorsApp.PRIMARY} onPress={next}>{Strings.ST128}</Button>
           </View>}
         </View>
         <View style={styles.dots}>
@@ -129,14 +133,14 @@ export default function SequencePlayer({route, navigation}) {
         </View>
         {items[index + 1] && <View style={[styles.upNextCard, {backgroundColor: dark ? '#1e1e1e' : '#f4f7f8'}]}>
           <View style={styles.upNextCopy}>
-            <Text style={[styles.upNextEyebrow, {color: dark ? '#aaa' : '#71808a'}]}>UP NEXT</Text>
+            <Text style={[styles.upNextEyebrow, {color: dark ? '#aaa' : '#71808a'}]}>{Strings.ST150}</Text>
             <Text style={[styles.upNextTitle, {color: dark ? '#fff' : '#18232b'}]} numberOfLines={1}>{items[index + 1].title}</Text>
           </View>
         </View>}
         <View style={styles.controls}>
-          <Button mode="text" textColor={dark ? '#fff' : '#111'} disabled={index === 0} onPress={previous}>Previous</Button>
+          <Button mode="text" textColor={dark ? '#fff' : '#111'} disabled={index === 0} onPress={previous}>{Strings.ST127}</Button>
           <Button mode="contained" buttonColor={ColorsApp.PRIMARY} onPress={next} disabled={index === items.length - 1}>
-            {index === items.length - 1 ? 'Finished' : 'Next exercise'}
+            {index === items.length - 1 ? Strings.ST76 : Strings.ST128}
           </Button>
         </View>
       </SafeAreaView>

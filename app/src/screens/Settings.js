@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, ScrollView, I18nManager } from 'react-native';
 import { RadioButton, Switch, Paragraph, List} from 'react-native-paper';
 import {map} from 'lodash';
 import Styles from '../config/Styles';
 import Languages from '../languages';
 import LanguageContext from '../languages/LanguageContext';
-import * as Updates from 'expo-updates';
-import CustomModal from '../components/CustomModal';
 import usePreferences from '../hooks/usePreferences';
 
 export default function Settings(props) {
 
     const {navigation} = props;
-    const [modal, showModal] = useState(false); 
     const contextState = React.useContext(LanguageContext);
     let language = contextState.language;
     const Strings = Languages[language].texts;
@@ -31,18 +28,11 @@ export default function Settings(props) {
       }
       contextState.updateValue(selectedLanguage);
 
-      showModal(true);
-
-      setTimeout(() => {
-        Updates.reloadAsync();
-      }, 1000);
-
     }
 
  return (
 
   <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
-    <CustomModal isVisible={modal} modalText={Strings.ST31} showIndicator={true}/>
     <View style={Styles.ContentScreen}>
 
       <List.Item

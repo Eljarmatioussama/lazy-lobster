@@ -108,7 +108,7 @@ if(size(items) >= 1){
           <View>
             <FAB
           style={{marginHorizontal: 50, marginBottom:20, elevation: 0}}
-          label="Start classes"
+          label={Strings.ST156}
           icon="play"
           onPress={() => onClickStart(id, day)}
           />

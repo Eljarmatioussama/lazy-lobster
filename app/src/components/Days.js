@@ -23,7 +23,7 @@ export default function Days(props) {
 
     const {Number: daysCount, WorkoutId} = props;
 
-    const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const weekdays = [Strings.ST158, Strings.ST159, Strings.ST160, Strings.ST161, Strings.ST162, Strings.ST163, Strings.ST164];
     const dayDetails = [
         ['Morning Flow', '20 min', '✓ Completed'],
         ['Gentle Stretch', '15 min', '▶ Continue'],
@@ -78,7 +78,7 @@ export default function Days(props) {
     <TouchableOpacity key={i} style={[Styles.DayCard, {minHeight:78, paddingVertical:9, backgroundColor:dark ? '#1e1e1e' : '#fff', borderColor:dark ? '#3a3a3a' : '#e7ecef'}]} activeOpacity={0.85} onPress={() => onChangeScreen(WorkoutId, i + 1, weekdays[i])}>
       <View style={[Styles.DayCardContent, {alignItems:'flex-start', justifyContent:'center'}]}>
         <Text style={[Styles.DayCardLabel, {textAlign:'left', marginBottom:2, color:dark ? '#fff' : '#111'}]}>{weekdays[i]}</Text>
-        <Text style={[Styles.DayCardDuration, {textAlign:'left', marginBottom:0}]}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : 'Calculating…'}</Text>
+        <Text style={[Styles.DayCardDuration, {textAlign:'left', marginBottom:0}]}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : Strings.ST157}</Text>
       </View>
       <Pressable
         onPress={() => onChangeScreen(WorkoutId, i + 1, weekdays[i])}
