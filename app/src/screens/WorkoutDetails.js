@@ -8,12 +8,12 @@ import AppLoading from '../components/InnerLoading';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, IconButton } from 'react-native-paper';
 import VideoPlayer from '../components/VideoPlayer';
-import { Col, Grid } from 'react-native-easy-grid';
 import Days from '../components/Days';
 import LevelRate from '../components/LevelRate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import usePreferences from '../hooks/usePreferences';
 import CollapsibleHeader from '../components/CollapsibleHeader';
+import ColorsApp from '../config/ColorsApp';
 
 export default function WorkoutDetails(props) {
 
@@ -131,7 +131,13 @@ export default function WorkoutDetails(props) {
 
     <View style={{paddingTop: 24, backgroundColor: theme === 'dark' ? '#121212' : '#fff'}}>
 
-    {introVideo ? <VideoPlayer videoUrl={introVideo} thumbnail={item.image} title={item.title} onVideoCompleted={() => {}} /> : <ImageBackground source={{uri: item.image}} style={Styles.HeaderImage} resizeMode={'cover'}>
+    {introVideo ? <View>
+      <View style={{marginHorizontal:20, marginTop:16, paddingTop:4, paddingBottom:2}}>
+        <Text style={{color:ColorsApp.PRIMARY, fontSize:10, fontWeight:'800', letterSpacing:1.1, marginBottom:3}}>INTRODUCTION</Text>
+        <Text style={{color:theme === 'dark' ? '#fff' : '#18232b', fontSize:16, fontWeight:'800'}} numberOfLines={1}>{item.title}</Text>
+      </View>
+      <VideoPlayer videoUrl={introVideo} thumbnail={item.image} title={item.title} onVideoCompleted={() => {}} />
+    </View> : <ImageBackground source={{uri: item.image}} style={Styles.HeaderImage} resizeMode={'cover'}>
     <LinearGradient colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0.4)']} style={Styles.HeaderGradient}>
 
     <Text style={Styles.HeaderTitle}>{item.title}</Text>
@@ -144,20 +150,24 @@ export default function WorkoutDetails(props) {
     </LinearGradient>
     </ImageBackground>}
 
-    <Grid style={Styles.WorkoutGrid}>
+    <View style={{marginTop:20, marginHorizontal:20}}>
+      <Text style={{color:theme === 'dark' ? '#aaa' : '#71808a', fontSize:11, letterSpacing:1.2, fontWeight:'800'}}>YOUR PLAN</Text>
+      <View style={{flexDirection:'row', gap:10, marginTop:10}}>
+        <View style={{flex:1, minHeight:72, padding:11, borderRadius:14, borderLeftWidth:4, borderLeftColor:ColorsApp.PRIMARY, backgroundColor:theme === 'dark' ? '#1e1e1e' : '#f4f7f8'}}>
+          <Text style={{color:theme === 'dark' ? '#aaa' : '#71808a', fontSize:10, letterSpacing:1, fontWeight:'800'}}>{Strings.ST87}</Text>
+          <Text style={{color:theme === 'dark' ? '#fff' : '#18232b', fontSize:14, fontWeight:'800', marginTop:7}}>{item.level || '—'}</Text>
+        </View>
+        <View style={{flex:1, minHeight:72, padding:11, borderRadius:14, borderLeftWidth:4, borderLeftColor:'#f2a65a', backgroundColor:theme === 'dark' ? '#1e1e1e' : '#f4f7f8'}}>
+          <Text style={{color:theme === 'dark' ? '#aaa' : '#71808a', fontSize:10, letterSpacing:1, fontWeight:'800'}}>{Strings.ST89}</Text>
+          <Text style={{color:theme === 'dark' ? '#fff' : '#18232b', fontSize:14, fontWeight:'800', marginTop:7}}>{item.goal || '—'}</Text>
+        </View>
+      </View>
+    </View>
 
-      <Col style={Styles.WorkoutGridCol}>
-      <Text style={Styles.WorkoutGridTitle}>{Strings.ST87}</Text>
-      <Text style={[Styles.WorkoutGridSubTitle, theme === 'dark' && {color:'#e7f5ef'}]}>{item.level}</Text>
-      </Col>
-
-      <Col style={Styles.WorkoutGridCol}>
-      <Text style={Styles.WorkoutGridTitle}>{Strings.ST89}</Text>
-      <Text style={[Styles.WorkoutGridSubTitle, theme === 'dark' && {color:'#e7f5ef'}]}>{item.goal}</Text>
-      </Col>
-
-    </Grid>
-
+    <View style={{marginTop:28, marginHorizontal:20}}>
+      <Text style={{color:theme === 'dark' ? '#aaa' : '#71808a', fontSize:11, letterSpacing:1.2, fontWeight:'800'}}>WEEKLY CLASSES</Text>
+      <Text style={{color:theme === 'dark' ? '#ddd' : '#4b5b66', fontSize:14, marginTop:4}}>Choose a day to start your next class</Text>
+    </View>
     <Days Number={7} WorkoutId={item.id}></Days>
 
     </View>

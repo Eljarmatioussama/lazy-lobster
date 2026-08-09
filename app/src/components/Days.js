@@ -11,12 +11,15 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { auth } from '../config/ConfigFirebase';
 import { getWorkoutByDay } from '../config/DataApp';
+import usePreferences from '../hooks/usePreferences';
 
 export default function Days(props) {
 
     const contextState = React.useContext(LanguageContext);
     const language = contextState.language;
     const Strings = Languages[language].texts;
+    const {theme} = usePreferences();
+    const dark = theme === 'dark';
 
     const {Number: daysCount, WorkoutId} = props;
 
@@ -72,9 +75,9 @@ export default function Days(props) {
 
     {map(totalDays, (i) => (
 
-    <TouchableOpacity key={i} style={[Styles.DayCard, {minHeight:78, paddingVertical:9}]} activeOpacity={0.85} onPress={() => onChangeScreen(WorkoutId, i + 1, weekdays[i])}>
+    <TouchableOpacity key={i} style={[Styles.DayCard, {minHeight:78, paddingVertical:9, backgroundColor:dark ? '#1e1e1e' : '#fff', borderColor:dark ? '#3a3a3a' : '#e7ecef'}]} activeOpacity={0.85} onPress={() => onChangeScreen(WorkoutId, i + 1, weekdays[i])}>
       <View style={[Styles.DayCardContent, {alignItems:'flex-start', justifyContent:'center'}]}>
-        <Text style={[Styles.DayCardLabel, {textAlign:'left', marginBottom:2}]}>{weekdays[i]}</Text>
+        <Text style={[Styles.DayCardLabel, {textAlign:'left', marginBottom:2, color:dark ? '#fff' : '#111'}]}>{weekdays[i]}</Text>
         <Text style={[Styles.DayCardDuration, {textAlign:'left', marginBottom:0}]}>{dayDurations[i + 1] ? `${Math.ceil(dayDurations[i + 1] / 60)} min` : 'Calculating…'}</Text>
       </View>
       <Pressable

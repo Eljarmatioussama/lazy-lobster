@@ -25,6 +25,8 @@ export default function SequencePlayer({route, navigation}) {
   const [showNextPrompt, setShowNextPrompt] = useState(false);
   const [savedProgress, setSavedProgress] = useState(0);
   const item = items[index] || {};
+  const level = item.level_title || item.level;
+  const goal = item.goal_title || item.goal;
   const videoUrl = useMemo(() => mediaUrl(item.video), [item.video]);
   const player = useVideoPlayer(videoUrl, instance => {
     instance.loop = false;
@@ -99,20 +101,38 @@ export default function SequencePlayer({route, navigation}) {
     <View style={[styles.root, {backgroundColor: dark ? '#121212' : '#fff'}]}>
       <SafeAreaView style={styles.safe}>
         <View style={styles.top}>
-          <IconButton icon="close" iconColor={dark ? '#fff' : '#111'} onPress={() => navigation.goBack()} />
-          <Text style={[styles.counter, {color: dark ? '#fff' : '#111'}]}>{index + 1} / {items.length}</Text>
+          <IconButton icon="close" mode="contained" containerColor={dark ? '#292929' : '#eef2f5'} iconColor={dark ? '#fff' : '#111'} onPress={() => navigation.goBack()} />
+          <View style={[styles.counterPill, {backgroundColor: dark ? '#292929' : '#eef2f5'}]}>
+            <Text style={[styles.counter, {color: dark ? '#fff' : '#111'}]}>CLASS {index + 1} OF {items.length}</Text>
+          </View>
           <View style={{width: 48}} />
         </View>
-        <Text style={[styles.title, {color: dark ? '#fff' : '#111'}]}>{item.title || 'Exercise'}</Text>
+        <View style={styles.heading}>
+          <Text style={styles.eyebrow}>NOW PLAYING</Text>
+          <Text style={[styles.title, {color: dark ? '#fff' : '#111'}]}>{item.title || 'Exercise'}</Text>
+          {(level || goal) && <View style={styles.metaRow}>
+            {level && <View style={[styles.metaPill, {backgroundColor: dark ? '#292929' : '#eef2f5'}]}><Text style={[styles.metaText, {color: dark ? '#ddd' : '#4b5b66'}]}>{level}</Text></View>}
+            {goal && <View style={[styles.metaPill, {backgroundColor: dark ? '#292929' : '#eef2f5'}]}><Text style={[styles.metaText, {color: dark ? '#ddd' : '#4b5b66'}]}>{goal}</Text></View>}
+          </View>}
+        </View>
         <View style={styles.videoBox}>
           {videoUrl ? <VideoView player={player} style={styles.video} contentFit="contain" nativeControls fullscreenOptions={{enable: false}} />
             : item.image ? <Image source={{uri: mediaUrl(item.image)}} style={styles.video} resizeMode="cover" />
-            : <Text style={styles.noVideo}>No video available</Text>}
+            : <Text style={[styles.noVideo, {color: dark ? '#fff' : '#111'}]}>No video available</Text>}
           {showNextPrompt && <View style={styles.nextPrompt}>
             <Text style={styles.nextLabel}>Up next: {items[index + 1]?.title || 'Next exercise'}</Text>
             <Button mode="contained" buttonColor={ColorsApp.PRIMARY} onPress={next}>Next exercise</Button>
           </View>}
         </View>
+        <View style={styles.dots}>
+          {items.map((_, dotIndex) => <View key={dotIndex} style={[styles.dot, {backgroundColor: dotIndex === index ? ColorsApp.PRIMARY : (dark ? '#444' : '#d7e0e5'), width: dotIndex === index ? 22 : 7}]} />)}
+        </View>
+        {items[index + 1] && <View style={[styles.upNextCard, {backgroundColor: dark ? '#1e1e1e' : '#f4f7f8'}]}>
+          <View style={styles.upNextCopy}>
+            <Text style={[styles.upNextEyebrow, {color: dark ? '#aaa' : '#71808a'}]}>UP NEXT</Text>
+            <Text style={[styles.upNextTitle, {color: dark ? '#fff' : '#18232b'}]} numberOfLines={1}>{items[index + 1].title}</Text>
+          </View>
+        </View>}
         <View style={styles.controls}>
           <Button mode="text" textColor={dark ? '#fff' : '#111'} disabled={index === 0} onPress={previous}>Previous</Button>
           <Button mode="contained" buttonColor={ColorsApp.PRIMARY} onPress={next} disabled={index === items.length - 1}>
@@ -127,14 +147,26 @@ export default function SequencePlayer({route, navigation}) {
 const styles = StyleSheet.create({
   root: {flex: 1, backgroundColor: '#fff'},
   safe: {flex: 1},
-  top: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-  counter: {color: '#111', fontWeight: '700'},
-  title: {color: '#111', fontSize: 24, fontWeight: '700', marginHorizontal: 20, marginVertical: 18},
+  top: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 12, paddingTop: 4},
+  counterPill: {paddingHorizontal: 13, paddingVertical: 8, borderRadius: 20},
+  counter: {fontSize: 11, letterSpacing: 0.7, fontWeight: '800'},
+  heading: {paddingHorizontal: 20, paddingTop: 8, paddingBottom: 16},
+  eyebrow: {color: ColorsApp.PRIMARY, fontSize: 11, fontWeight: '800', letterSpacing: 1.2, marginBottom: 6},
+  title: {color: '#111', fontSize: 25, fontWeight: '800'},
+  metaRow: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 11},
+  metaPill: {paddingHorizontal: 10, paddingVertical: 5, borderRadius: 14},
+  metaText: {fontSize: 12, fontWeight: '600'},
   videoBox: {width: '100%', aspectRatio: 16 / 9, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center'},
   video: {width: '100%', height: '100%'},
   noVideo: {color: '#111'},
   nextPrompt: {position: 'absolute', right: 12, bottom: 12, padding: 12, borderRadius: 10, backgroundColor: 'rgba(0,0,0,0.82)', maxWidth: '85%'},
   nextLabel: {color: '#fff', fontWeight: '700', marginBottom: 6},
-  controls: {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20},
+  dots: {flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 5, paddingVertical: 14},
+  dot: {height: 7, borderRadius: 4},
+  upNextCard: {marginHorizontal: 20, padding: 12, borderRadius: 14, flexDirection: 'row', alignItems: 'center'},
+  upNextCopy: {flex: 1, marginRight: 10},
+  upNextEyebrow: {fontSize: 10, fontWeight: '800', letterSpacing: 1, marginBottom: 3},
+  upNextTitle: {fontSize: 15, fontWeight: '700'},
+  controls: {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20, paddingTop: 14},
   empty: {flex: 1, justifyContent: 'center', alignItems: 'center'},
 });
