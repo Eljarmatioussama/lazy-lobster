@@ -86,7 +86,7 @@ export default function Diets(props) {
 
   const renderDiet = ({item, index}) => (
     <TouchableOpacity key={item.id || index} activeOpacity={0.9} onPress={() => onClickItem(item.id, item.title)}>
-      <ImageBackground source={{uri: item.image}} style={[Styles.card3_background, {width: Math.max(0, width - 32), height: Math.max(180, (width - 32) * 0.54), marginBottom: 20}]} imageStyle={{borderRadius: 20}}>
+      <ImageBackground source={{uri: item.image}} style={[Styles.card3_background, {width: Math.max(0, width - 32), height: Math.max(180, (width - 32) * 0.54), marginBottom: 20, padding:0, overflow:'hidden'}]} imageStyle={{borderRadius: 20}}>
         <LinearGradient colors={['rgba(0,0,0,0.08)', 'rgba(0,0,0,0.78)']} style={[Styles.card3_gradient, {height: '100%', borderRadius: 20}]}>
           <Text numberOfLines={1} style={Styles.card3_category}>{item.category}</Text>
           <Text numberOfLines={2} style={Styles.card3_title}>{item.title}</Text>
